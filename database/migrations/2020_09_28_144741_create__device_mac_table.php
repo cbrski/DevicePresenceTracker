@@ -15,10 +15,11 @@ class CreateDeviceMacTable extends Migration
     {
         Schema::create('device_macs', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_device');
+            $table->bigInteger('device_id')->unsigned();
             $table->string('mac', 17);
             $table->enum('link_layer', ['ethernet', 'wifi']);
             $table->timestamps();
+            $table->foreign('device_id')->references('id')->on('devices');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateDeviceMacTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_device_mac');
+        Schema::dropIfExists('device_macs');
     }
 }

@@ -27,6 +27,6 @@ class CreateDeviceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_device');
+        Schema::dropIfExists('devices');
     }
 }

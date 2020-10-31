@@ -15,7 +15,7 @@ class CreateDeviceStateLogTable extends Migration
     {
         Schema::create('device_state_logs', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_device');
+            $table->bigInteger('device_id')->unsigned();
             $table->timestamp('timestamp');
             $table->enum('state',
                 [
@@ -31,6 +31,7 @@ class CreateDeviceStateLogTable extends Migration
                 ]
             );
 //            $table->timestamps();
+            $table->foreign('device_id')->on('devices')->references('id');
         });
     }
 
@@ -41,6 +42,6 @@ class CreateDeviceStateLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_device_state_log');
+        Schema::dropIfExists('device_state_logs');
     }
 }

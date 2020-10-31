@@ -28,6 +28,6 @@ class CreateLogTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_log');
+        Schema::dropIfExists('logs');
     }
 }

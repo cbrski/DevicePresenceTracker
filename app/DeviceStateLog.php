@@ -10,4 +10,8 @@ class DeviceStateLog extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    public function device() {
+        $this->hasOne('App\Device');
+    }
 }
