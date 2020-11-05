@@ -12,6 +12,9 @@
     <testsuite name="TimestampFileHelper">
       <directory suffix="TimestampFileHelperTest.php">./tests/Unit</directory>
     </testsuite>
+    <testsuite name="RouterApi">
+      <directory suffix="RouterApiTest.php">./tests/Unit</directory>
+    </testsuite>
 <!--    <testsuite name="Feature">-->
 <!--      <directory suffix="Test.php">./tests/Feature</directory>-->
 <!--    </testsuite>-->
