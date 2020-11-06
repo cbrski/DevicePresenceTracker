@@ -2,9 +2,12 @@
 
 namespace Tests\Unit;
 
+use anlutro\LaravelSettings\DatabaseSettingStore;
+use App\Api\Helpers\SettingsHelper;
 use App\Api\Helpers\TimestampFileHelper;
 use GuzzleHttp\Client;
 //use PHPUnit\Framework\TestCase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use App\Api\RouterApi;
 
@@ -17,10 +20,17 @@ class RouterApiTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid configuration for App\Api\RouterApi, there is no: login');
 
-        $api = new RouterApi(new Client(), new TimestampFileHelper(self::FILENAME), [
-            'url_auth' => env('OPENWRT_API_URL_AUTH'),
-            'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
-        ]);
+        $db = DB::getDefaultConnection();
+
+        $api = new RouterApi(
+            new Client(),
+            new TimestampFileHelper(self::FILENAME),
+            new SettingsHelper(),
+            [
+                'url_auth' => env('OPENWRT_API_URL_AUTH'),
+                'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+            ]
+        );
         $api->authorize();
     }
 
@@ -29,60 +39,80 @@ class RouterApiTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid configuration for App\Api\RouterApi, misconfigured: login');
 
-        $api = new RouterApi(new Client(), new TimestampFileHelper(self::FILENAME), [
-            'login' => null,
-            'password' => null,
-            'host' => null,
-            'url_auth' => env('OPENWRT_API_URL_AUTH'),
-            'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
-        ]);
+        $api = new RouterApi(
+            new Client(),
+            new TimestampFileHelper(self::FILENAME),
+            new SettingsHelper(),
+            [
+                'login' => null,
+                'password' => null,
+                'host' => null,
+                'url_auth' => env('OPENWRT_API_URL_AUTH'),
+                'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+            ]
+        );
         $api->authorize();
     }
 
     public function testAuthorizeInvalidOrOfflineHostAddress()
     {
-        $api = new RouterApi(new Client(), new TimestampFileHelper(self::FILENAME), [
-            'login' => env('OPENWRT_API_LOGIN'),
-            'password' => env('OPENWRT_API_PASSWORD'),
-            'host' => 'invalid.thanks',
-            'url_auth' => env('OPENWRT_API_URL_AUTH'),
-            'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
-        ]);
+        $api = new RouterApi(
+            new Client(),
+            new TimestampFileHelper(self::FILENAME),
+            new SettingsHelper(),
+            [
+                'login' => env('OPENWRT_API_LOGIN'),
+                'password' => env('OPENWRT_API_PASSWORD'),
+                'host' => 'invalid.thanks',
+                'url_auth' => env('OPENWRT_API_URL_AUTH'),
+                'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+            ]
+        );
         $this->assertFalse($api->authorize());
 
     }
 
     public function testAuthorizeInvalidCredentials()
     {
-        $api = new RouterApi(new Client(), new TimestampFileHelper(self::FILENAME), [
-            'login' => 'not_valid',
-            'password' => 'not_valid',
-            'host' => env('OPENWRT_API_HOST'),
-            'url_auth' => env('OPENWRT_API_URL_AUTH'),
-            'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
-        ]);
+        $api = new RouterApi(
+            new Client(),
+            new TimestampFileHelper(self::FILENAME),
+            new SettingsHelper(),
+            [
+                'login' => 'not_valid',
+                'password' => 'not_valid',
+                'host' => env('OPENWRT_API_HOST'),
+                'url_auth' => env('OPENWRT_API_URL_AUTH'),
+                'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+            ]
+        );
         $this->assertFalse($api->authorize());
     }
 
     public function testAuthorize(): RouterApi
     {
-        $api = new RouterApi(new Client(), new TimestampFileHelper(self::FILENAME), [
-            'login' => env('OPENWRT_API_LOGIN'),
-            'password' => env('OPENWRT_API_PASSWORD'),
-            'host' => env('OPENWRT_API_HOST'),
-            'url_auth' => env('OPENWRT_API_URL_AUTH'),
-            'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
-        ]);
+        $api = new RouterApi(
+            new Client(),
+            new TimestampFileHelper(self::FILENAME),
+            new SettingsHelper(),
+            [
+                'login' => env('OPENWRT_API_LOGIN'),
+                'password' => env('OPENWRT_API_PASSWORD'),
+                'host' => env('OPENWRT_API_HOST'),
+                'url_auth' => env('OPENWRT_API_URL_AUTH'),
+                'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+            ]
+        );
         $api->authorize();
         $this->assertEquals(32, strlen($api->getToken()));
 
         return $api;
     }
 
-//    public function testAuthorizeSameToken(): RouterApi
-//    {
-//
-//    }
+    public function testAuthorizeSameToken(): RouterApi
+    {
+        $this->assertTrue(false);
+    }
 
     /**
      * @param RouterApi $api

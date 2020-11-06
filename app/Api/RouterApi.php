@@ -3,6 +3,7 @@
 namespace App\Api;
 
 use AdvancedJsonRpc\Request;
+use App\Api\Helpers\SettingsHelper;
 use App\Api\Helpers\TimestampFileHelper;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
@@ -12,13 +13,14 @@ use App\Api\Mappers\TargetLogin;
 class RouterApi
 {
 
-    protected $config = [];
-    protected $configNeededKeys = [
+    protected array $config = [];
+    protected array $configNeededKeys = [
         'login', 'password', 'host', 'url_auth', 'url_neighbours'
     ];
-    protected $token;
-    protected $client;
-    protected $timestampHelper;
+    protected string $token;
+    protected Client $client;
+    protected TimestampFileHelper $timestampHelper;
+    protected SettingsHelper $settings;
 
     private function checkNeededKeysInConfig($_config)
     {
@@ -57,7 +59,10 @@ class RouterApi
     }
 
     public function __construct(
-        Client $_client, TimestampFileHelper $_timestampFileHelper, array $_config
+        Client $_client,
+        TimestampFileHelper $_timestampFileHelper,
+        SettingsHelper $_settings,
+        array $_config
     )
     {
         $this->checkNeededKeysInConfig($_config);
@@ -71,6 +76,7 @@ class RouterApi
 
         $this->client = $_client;
         $this->timestampHelper = $_timestampFileHelper;
+        $this->settings = $_settings;
     }
 
     public function authorize(): bool
