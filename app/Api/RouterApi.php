@@ -12,12 +12,10 @@ use App\Api\Mappers\TargetLogin;
 
 class RouterApi
 {
-
     protected array $config = [];
     protected array $configNeededKeys = [
-        'login', 'password', 'host', 'url_auth', 'url_neighbours'
+        'login', 'password', 'host', 'url_auth', 'url_neighbours', 'session_timeout'
     ];
-    protected string $token;
     protected Client $client;
     protected TimestampFileHelper $timestampHelper;
     protected SettingsHelper $settings;
@@ -73,14 +71,25 @@ class RouterApi
         $this->config['host'] =            $_config['host'];
         $this->config['url_auth'] =        $_config['url_auth'];
         $this->config['url_neighbours'] =  $_config['url_neighbours'];
+        $this->config['session_timeout'] = $_config['session_timeout'];
 
         $this->client = $_client;
         $this->timestampHelper = $_timestampFileHelper;
         $this->settings = $_settings;
     }
 
+//    private function isOngoingSession(): bool
+//    {
+//        return false;
+//    }
+
     public function authorize(): bool
     {
+//        if ($this->isOngoingSession())
+//        {
+//            return true;
+//        }
+
         $request = new Request(1, 'login', [
             $this->config['login'],
             $this->config['password'],
@@ -108,15 +117,18 @@ class RouterApi
                 Log::critical(__CLASS__.':'.__METHOD__.': incorrect login data');
                 return false;
             }
+            Log::critical(__CLASS__.':'.__METHOD__.': cannot login');
+            return false;
         }
 
-        $this->token = $login->result;
+        $this->settings->tokenString = $login->result;
+        $this->settings->save();
         return true;
     }
 
     public function getToken()
     {
-        return $this->token;
+        return $this->settings->tokenString;
     }
 
     public function getNeighbours()

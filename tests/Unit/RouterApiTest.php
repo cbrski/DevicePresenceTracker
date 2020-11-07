@@ -5,22 +5,36 @@ namespace Tests\Unit;
 use App\Api\Helpers\SettingsHelper;
 use App\Api\Helpers\TimestampFileHelper;
 use GuzzleHttp\Client;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Api\RouterApi;
 
 class RouterApiTest extends TestCase
 {
+//    use RefreshDatabase;
+
     private const FILENAME = 'test_api_timestamp_remove_this_file';
+    private SettingsHelper $settingsHelper;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->settingsHelper = new SettingsHelper(
+            [
+                'tokenString' => 'none',
+                'tokenAcquisitionTimestamp' => 0,
+            ]
+        );
+    }
 
     public function testAuthorizeInvalidNotAllNeededConfig(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid configuration for App\Api\RouterApi, there is no: login');
-
         $api = new RouterApi(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
-            new SettingsHelper(),
+            $this->settingsHelper,
             [
                 'url_auth' => env('OPENWRT_API_URL_AUTH'),
                 'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
@@ -37,13 +51,14 @@ class RouterApiTest extends TestCase
         $api = new RouterApi(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
-            new SettingsHelper(),
+            $this->settingsHelper,
             [
                 'login' => null,
                 'password' => null,
                 'host' => null,
                 'url_auth' => env('OPENWRT_API_URL_AUTH'),
                 'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+                'session_timeout' => env('OPENWRT_API_SESSION_TIMEOUT'),
             ]
         );
         $api->authorize();
@@ -54,13 +69,14 @@ class RouterApiTest extends TestCase
         $api = new RouterApi(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
-            new SettingsHelper(),
+            $this->settingsHelper,
             [
                 'login' => env('OPENWRT_API_LOGIN'),
                 'password' => env('OPENWRT_API_PASSWORD'),
                 'host' => 'invalid.thanks',
                 'url_auth' => env('OPENWRT_API_URL_AUTH'),
                 'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+                'session_timeout' => env('OPENWRT_API_SESSION_TIMEOUT'),
             ]
         );
         $this->assertFalse($api->authorize());
@@ -72,13 +88,14 @@ class RouterApiTest extends TestCase
         $api = new RouterApi(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
-            new SettingsHelper(),
+            $this->settingsHelper,
             [
                 'login' => 'not_valid',
                 'password' => 'not_valid',
                 'host' => env('OPENWRT_API_HOST'),
                 'url_auth' => env('OPENWRT_API_URL_AUTH'),
                 'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+                'session_timeout' => env('OPENWRT_API_SESSION_TIMEOUT'),
             ]
         );
         $this->assertFalse($api->authorize());
@@ -89,13 +106,14 @@ class RouterApiTest extends TestCase
         $api = new RouterApi(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
-            new SettingsHelper(),
+            $this->settingsHelper,
             [
                 'login' => env('OPENWRT_API_LOGIN'),
                 'password' => env('OPENWRT_API_PASSWORD'),
                 'host' => env('OPENWRT_API_HOST'),
                 'url_auth' => env('OPENWRT_API_URL_AUTH'),
                 'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+                'session_timeout' => env('OPENWRT_API_SESSION_TIMEOUT'),
             ]
         );
         $api->authorize();
