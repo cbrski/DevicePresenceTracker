@@ -9,6 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use JsonMapper;
 use App\Api\Mappers\TargetLogin;
+use Psr\Http\Message\ResponseInterface;
 
 class RouterApi
 {
@@ -78,39 +79,77 @@ class RouterApi
         $this->settings = $_settings;
     }
 
-//    private function isOngoingSession(): bool
-//    {
-//        return false;
-//    }
-
-    public function authorize(): bool
+    private function isTokenExpired(): bool
     {
-//        if ($this->isOngoingSession())
-//        {
-//            return true;
-//        }
+        $timestampBorder = time()-$this->config['session_timeout'];
 
-        $request = new Request(1, 'login', [
+        $timestampFromDatabase = $this->settings->tokenAcquisitionTimestamp;
+        $timestampFromFile = $this->timestampHelper->getTimestamp();
+
+        $authorityDatabase =    $timestampBorder < $timestampFromDatabase;
+        $authorityFile =        $timestampBorder < $timestampFromFile;
+
+        if ($authorityDatabase && $authorityFile)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private function isSetToken(): bool
+    {
+        if (strlen($this->settings->tokenString) == 32)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private function isOngoingSession(): bool
+    {
+        if (!$this->isTokenExpired() && $this->isSetToken())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private function keepToken($token): void
+    {
+        $this->settings->tokenString = $token;
+        $this->settings->tokenAcquisitionTimestamp = time();
+        $this->settings->save();
+        $this->timestampHelper->setTimestamp();
+    }
+
+    private function prepareLoginRequestBody(): Request
+    {
+        return new Request(1, 'login', [
             $this->config['login'],
             $this->config['password'],
         ]);
+    }
 
+    private function sendLoginRequest(Request $requestBody)
+    {
         try {
             $result = $this->client->request(
                 'POST',
                 $this->config['host'] . $this->config['url_auth'],
-                ['body' => $request]
+                ['body' => $requestBody]
             );
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             Log::critical(__CLASS__.':'.__METHOD__.': '.$e->getMessage());
             return false;
         }
+        return $result;
+    }
 
-        $content = $result->getBody()->getContents();
-
+    private function getLoginResponse(string $content)
+    {
         try {
             $mapper = new JsonMapper();
-            $login = $mapper->map(json_decode($content), new TargetLogin());
+            $loginResponse = $mapper->map(json_decode($content), new TargetLogin());
         } catch (\JsonMapper_Exception $e) {
             if ($e->getMessage() == 'JSON property "result" in class "App\Api\Mappers\TargetLogin" must not be NULL')
             {
@@ -120,9 +159,27 @@ class RouterApi
             Log::critical(__CLASS__.':'.__METHOD__.': cannot login');
             return false;
         }
+        return $loginResponse;
+    }
 
-        $this->settings->tokenString = $login->result;
-        $this->settings->save();
+    public function authorize(): bool
+    {
+        if ($this->isOngoingSession())
+        {
+            return true;
+        }
+
+        if (! ($result = $this->sendLoginRequest($this->prepareLoginRequestBody()) ))
+        {
+            return false;
+        }
+
+        if (! ($loginResponse = $this->getLoginResponse($result->getBody()->getContents()) ))
+        {
+            return false;
+        }
+
+        $this->keepToken($loginResponse->result);
         return true;
     }
 

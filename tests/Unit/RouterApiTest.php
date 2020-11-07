@@ -124,14 +124,49 @@ class RouterApiTest extends TestCase
 
     public function testAuthorizeSameToken(): RouterApi
     {
-        $this->assertTrue(false);
+        $api = new RouterApi(
+            new Client(),
+            new TimestampFileHelper(self::FILENAME),
+            $this->settingsHelper,
+            [
+                'login' => env('OPENWRT_API_LOGIN'),
+                'password' => env('OPENWRT_API_PASSWORD'),
+                'host' => env('OPENWRT_API_HOST'),
+                'url_auth' => env('OPENWRT_API_URL_AUTH'),
+                'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
+                'session_timeout' => env('OPENWRT_API_SESSION_TIMEOUT'),
+            ]
+        );
+        $api->authorize();
+        $token1 = $api->getToken();
+        for($i=0 ; $i<100 ; ++$i)
+        {
+            $api->authorize();
+        }
+        $token2 = $api->getToken();
+        $this->assertEquals($token1, $token2);
+        return $api;
     }
 
     /**
      * @param RouterApi $api
      * @depends testAuthorize
      */
-    public function testGetNeighbours(RouterApi $api)
+    public function testGetNeighboursOneAuthorize(RouterApi $api)
+    {
+        $neighbours = json_decode($api->getNeighbours());
+
+        $this->assertObjectHasAttribute('timestamp', $neighbours);
+        $this->assertObjectHasAttribute('neighbours', $neighbours);
+        $this->assertIsArray($neighbours->neighbours);
+
+    }
+
+    /**
+     * @param RouterApi $api
+     * @depends testAuthorizeSameToken
+     */
+    public function testGetNeighboursManyAuthorize(RouterApi $api)
     {
         $neighbours = json_decode($api->getNeighbours());
 
