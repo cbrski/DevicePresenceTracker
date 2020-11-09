@@ -9,7 +9,6 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use JsonMapper;
 use App\Api\Mappers\TargetLogin;
-use Psr\Http\Message\ResponseInterface;
 
 class RouterApi
 {
@@ -190,10 +189,9 @@ class RouterApi
 
     public function getNeighbours()
     {
-        $request = new Request(2, 'getNeighbours');
         $result = $this->client->request('GET',
             $this->config['host'] . $this->config['url_neighbours'] .'?auth='.$this->getToken());
-        return $result->getBody()->getContents();
+        return json_decode($result->getBody()->getContents());
     }
 
 }
