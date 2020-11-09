@@ -15,3 +15,5 @@ yarn-error.log
 .idea/
 .vscode/
 *.swp
+test_*.php
+storage/timestamp_files/*
