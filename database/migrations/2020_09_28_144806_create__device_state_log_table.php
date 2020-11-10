@@ -15,8 +15,8 @@ class CreateDeviceStateLogTable extends Migration
     {
         Schema::create('device_state_logs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('device_id')->unsigned();
-            $table->timestamp('timestamp');
+            $table->unsignedBigInteger('device_id');
+            $table->unsignedBigInteger('timestamp');
             $table->enum('state',
                 [
                     'permament',
