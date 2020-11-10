@@ -11,7 +11,10 @@ class DeviceStateLog extends Model
 
     public $timestamps = false;
 
-    public function device() {
-        $this->hasOne('App\Device');
+    protected $fillable = ['device_id', 'timestamp'];
+
+    public function device()
+    {
+        $this->belongsTo('App\Device');
     }
 }

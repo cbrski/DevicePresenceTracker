@@ -152,27 +152,54 @@ class RouterApiTest extends TestCase
      * @param RouterApi $api
      * @depends testAuthorize
      */
-    public function testGetNeighboursOneAuthorize(RouterApi $api)
+    public function testGetNeighboursOneAuthorize(RouterApi $api): \stdClass
     {
-        $neighbours = json_decode($api->getNeighbours());
+        $neighbours = $api->getNeighbours();
 
         $this->assertObjectHasAttribute('timestamp', $neighbours);
         $this->assertObjectHasAttribute('neighbours', $neighbours);
         $this->assertIsArray($neighbours->neighbours);
 
+        return $neighbours;
     }
 
     /**
      * @param RouterApi $api
      * @depends testAuthorizeSameToken
      */
-    public function testGetNeighboursManyAuthorize(RouterApi $api)
+    public function testGetNeighboursManyAuthorize(RouterApi $api): \stdClass
     {
-        $neighbours = json_decode($api->getNeighbours());
+        $neighbours = $api->getNeighbours();
 
         $this->assertObjectHasAttribute('timestamp', $neighbours);
         $this->assertObjectHasAttribute('neighbours', $neighbours);
         $this->assertIsArray($neighbours->neighbours);
 
+        return $neighbours;
+    }
+
+    /**
+     * @param array $neighbours
+     * @depends testGetNeighboursManyAuthorize
+     */
+    public function testNeighboursStructure(\stdClass $neighboursObject): void
+    {
+        $a = func_get_arg(0);
+        if (is_array($neighboursObject->neighbours)
+            && isset($neighboursObject->neighbours[0])
+            && !empty($neighboursObject->neighbours[0]))
+        {
+            $n0 = $neighboursObject->neighbours[0];
+            $this->assertInstanceOf(\stdClass::class, $n0);
+            $this->assertObjectHasAttribute('ip', $n0);
+            $this->assertObjectHasAttribute('dev', $n0);
+            $this->assertObjectHasAttribute('lladdr', $n0);
+            $this->assertObjectHasAttribute('state', $n0);
+            $this->assertObjectHasAttribute('hostname', $n0);
+        }
+        else
+        {
+            $this->addWarning('There is no neighbours inside response.');
+        }
     }
 }

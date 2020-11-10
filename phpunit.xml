@@ -9,6 +9,9 @@
 <!--    <testsuite name="Unit">-->
 <!--      <directory suffix="Test.php">./tests/Unit</directory>-->
 <!--    </testsuite>-->
+    <testsuite name="DatabaseStructure">
+      <directory suffix="DatabaseStructureTest.php">./tests/Unit</directory>
+    </testsuite>
     <testsuite name="TimestampFileHelper">
         <directory suffix="TimestampFileHelperTest.php">./tests/Unit</directory>
     </testsuite>

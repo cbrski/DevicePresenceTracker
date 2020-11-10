@@ -15,8 +15,8 @@ class CreateDeviceMacTable extends Migration
     {
         Schema::create('device_macs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('device_id')->unsigned();
-            $table->string('mac', 17);
+            $table->unsignedBigInteger('device_id');
+            $table->string('mac', 17)->unique();
             $table->enum('link_layer', ['ethernet', 'wifi']);
             $table->timestamps();
             $table->foreign('device_id')->references('id')->on('devices');
