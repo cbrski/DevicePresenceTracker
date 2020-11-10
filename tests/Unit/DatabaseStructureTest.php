@@ -21,7 +21,7 @@ class DatabaseStructureTest extends TestCase
         $device_mac1 = new DeviceMac([
             'device_id' => $device1->id,
             'mac' => '00:00:00:11:11:11',
-            'link_layer' => 'ethernet'
+            'link_layer' => 'ethernet',
         ]);
         $device_mac1->save();
 
@@ -54,6 +54,21 @@ class DatabaseStructureTest extends TestCase
             $device_state_log1->getTable(),
             ['id' => $device1->device_state_logs->first()->id]
         );
+    }
+
+    public function testStoringIpv4Address()
+    {
+        $ipv4['string'] = '192.168.50.40';
+        $ipv4['int'] = ip2long($ipv4['string']);
+
+        $device1 = new Device([
+            'name' => 'laptop_1',
+            'ipv4' => ip2long($ipv4['string']),
+        ]);
+        $device1->save();
+
+        $this->assertEquals($ipv4['int'], $device1->ipv4);
+        $this->assertEquals(long2ip($device1->ipv4), $ipv4['string']);
     }
 
     public function testWorkingLogTable()

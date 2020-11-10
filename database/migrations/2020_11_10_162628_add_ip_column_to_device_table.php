@@ -14,8 +14,8 @@ class AddIpColumnToDeviceTable extends Migration
     public function up()
     {
         Schema::table('devices', function (Blueprint $table) {
-            $table->addColumn('bigInteger', 'ipv4',['autoIncrement'=>false, 'unsigned'=>true]);
-            $table->addColumn('binary', 'ipv6');
+            $table->addColumn('bigInteger', 'ipv4',['autoIncrement'=>false, 'unsigned'=>true])->nullable();
+            $table->addColumn('binary', 'ipv6')->nullable();
         });
     }
 

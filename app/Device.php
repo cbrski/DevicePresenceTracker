@@ -11,6 +11,11 @@ class Device extends Model
 
     protected $fillable = ['name', 'ipv4', 'ipv6'];
 
+    protected $attributes = [
+        'ipv4' => null,
+        'ipv6' => null,
+    ];
+
     public function device_macs()
     {
         return $this->hasMany('App\DeviceMac');
