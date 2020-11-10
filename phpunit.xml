@@ -10,10 +10,13 @@
 <!--      <directory suffix="Test.php">./tests/Unit</directory>-->
 <!--    </testsuite>-->
     <testsuite name="TimestampFileHelper">
-      <directory suffix="TimestampFileHelperTest.php">./tests/Unit</directory>
+        <directory suffix="TimestampFileHelperTest.php">./tests/Unit</directory>
     </testsuite>
     <testsuite name="RouterApi">
-      <directory suffix="RouterApiTest.php">./tests/Unit</directory>
+        <directory suffix="RouterApiTest.php">./tests/Unit</directory>
+    </testsuite>
+    <testsuite name="DeviceStatusManager">
+        <directory suffix="DeviceStatusManagerTest.php">./tests/Unit</directory>
     </testsuite>
 <!--    <testsuite name="Feature">-->
 <!--      <directory suffix="Test.php">./tests/Feature</directory>-->
