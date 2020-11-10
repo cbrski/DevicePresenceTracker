@@ -6,9 +6,7 @@
     </include>
   </coverage>
   <testsuites>
-<!--    <testsuite name="Unit">-->
-<!--      <directory suffix="Test.php">./tests/Unit</directory>-->
-<!--    </testsuite>-->
+
     <testsuite name="DatabaseStructure">
       <directory suffix="DatabaseStructureTest.php">./tests/Unit</directory>
     </testsuite>
@@ -18,12 +16,10 @@
     <testsuite name="RouterApi">
         <directory suffix="RouterApiTest.php">./tests/Unit</directory>
     </testsuite>
-    <testsuite name="DeviceStatusManager">
-        <directory suffix="DeviceStatusManagerTest.php">./tests/Unit</directory>
+    <testsuite name="DeviceStatusProvider">
+        <directory suffix="DeviceStateProviderTest.php">./tests/Unit</directory>
     </testsuite>
-<!--    <testsuite name="Feature">-->
-<!--      <directory suffix="Test.php">./tests/Feature</directory>-->
-<!--    </testsuite>-->
+
   </testsuites>
   <php>
     <server name="APP_ENV" value="testing"/>
