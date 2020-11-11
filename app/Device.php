@@ -9,7 +9,7 @@ class Device extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'ipv4', 'ipv6'];
+    protected $fillable = ['name', 'ipv4', 'ipv6', 'dev'];
 
     protected $attributes = [
         'ipv4' => null,

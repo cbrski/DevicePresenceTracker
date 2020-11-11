@@ -15,7 +15,11 @@ class DatabaseStructureTest extends TestCase
 
     public function testWorkingRelationships()
     {
-        $device1 = new Device(['name' => 'laptop_1']);
+        $device1 = new Device([
+            'name' => 'laptop_1',
+            'ipv4' => ip2long('192.168.23.23'),
+            'dev' => 'eth10'
+        ]);
         $device1->save();
 
         $device_mac1 = new DeviceMac([
@@ -64,6 +68,7 @@ class DatabaseStructureTest extends TestCase
         $device1 = new Device([
             'name' => 'laptop_1',
             'ipv4' => ip2long($ipv4['string']),
+            'dev' => 'eth20',
         ]);
         $device1->save();
 

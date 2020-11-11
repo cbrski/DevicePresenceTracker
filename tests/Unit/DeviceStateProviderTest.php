@@ -23,9 +23,21 @@ class DeviceStateProviderTest extends TestCase
 
     private function fixtureInit(): void
     {
-        $t['device'][0] = new Device(['name' => 'laptop_1']);
-        $t['device'][1] = new Device(['name' => 'laptop_2']);
-        $t['device'][2] = new Device(['name' => 'laptop_3']);
+        $t['device'][0] = new Device([
+            'name' => 'laptop_1',
+            'ipv4' => ip2long('192.168.23.23'),
+            'dev' => 'eth1',
+        ]);
+        $t['device'][1] = new Device([
+            'name' => 'laptop_2',
+            'ipv4' => ip2long('192.168.23.23'),
+            'dev' => 'eth2',
+        ]);
+        $t['device'][2] = new Device([
+            'name' => 'laptop_3',
+            'ipv4' => ip2long('192.168.23.23'),
+            'dev' => 'eth3  ',
+        ]);
         $this->ormSave($t['device']);
 
         $t['device_mac'][0] = new DeviceMac([
