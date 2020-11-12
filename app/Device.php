@@ -9,20 +9,17 @@ class Device extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'ipv4', 'ipv6', 'dev'];
-
-    protected $attributes = [
-        'ipv4' => null,
-        'ipv6' => null,
+    protected $fillable = [
+        'name',
     ];
 
-    public function device_macs()
+    public function device_links()
     {
-        return $this->hasMany('App\DeviceMac');
+        return $this->hasMany('App\DeviceLink');
     }
 
-    public function device_state_logs()
+    public function device_link_state_logs()
     {
-        return $this->hasMany('App\DeviceStateLog');
+        return $this->hasMany('App\DeviceLinkStateLog');
     }
 }

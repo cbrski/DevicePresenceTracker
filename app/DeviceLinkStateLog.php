@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DeviceStateLog extends Model
+class DeviceLinkStateLog extends Model
 {
     const STATE_PERMAMENT   = 'permament';
     const STATE_NOARP       = 'noarp';
@@ -21,10 +21,20 @@ class DeviceStateLog extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['device_id', 'timestamp'];
+    protected $fillable = [
+        'device_id',
+        'device_link_id',
+        'state',
+        'timestamp',
+    ];
 
     public function device()
     {
-        $this->belongsTo('App\Device');
+        return $this->belongsTo('App\Device');
+    }
+
+    public function device_link()
+    {
+        return $this->belongsTo('App\DeviceLink');
     }
 }

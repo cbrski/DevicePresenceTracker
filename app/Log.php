@@ -14,5 +14,8 @@ class Log extends Model
 
     public $timestamps = false;
 
-    public $fillable = ['timestamp', 'message'];
+    public $fillable = [
+        'timestamp',
+        'result'
+    ];
 }
