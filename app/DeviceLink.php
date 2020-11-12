@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeviceLink extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'device_id',
         'lladdr',

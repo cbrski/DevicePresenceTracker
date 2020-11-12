@@ -17,8 +17,6 @@ class DeviceLinkStateLog extends Model
     const STATE_PROBE       = 'probe';
     const STATE_FAILED      = 'failed';
 
-    use HasFactory;
-
     public $timestamps = false;
 
     protected $fillable = [

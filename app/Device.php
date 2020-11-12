@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'name',
     ];
