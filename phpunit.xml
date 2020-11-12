@@ -16,9 +16,6 @@
     <testsuite name="RouterApi">
         <directory suffix="RouterApiTest.php">./tests/Unit</directory>
     </testsuite>
-    <testsuite name="DeviceStatusProvider">
-        <directory suffix="DeviceStateProviderTest.php">./tests/Unit</directory>
-    </testsuite>
 
   </testsuites>
   <php>
