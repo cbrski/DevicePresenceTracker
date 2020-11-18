@@ -13,7 +13,7 @@ class RouterApiTest extends TestCase
 {
 //    use RefreshDatabase;
 
-    private const FILENAME = 'test_api_timestamp_remove_this_file';
+    public const FILENAME = 'test_api_timestamp_remove_this_file';
     private SettingsHelper $settingsHelper;
 
     public function setUp(): void
