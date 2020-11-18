@@ -17,7 +17,7 @@ class Refactor1CreateDeviceTable extends Migration
     {
         Schema::create(self::table, function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name', '100')->unique();
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ class Refactor1CreateDeviceLinkTable extends Migration
             $table->string('dev', 20)->comment('interface on router');
             $table->bigInteger('ipv4', false, true)->nullable();
             $table->binary('ipv6')->nullable();
-            $table->string('hostname', 100);
+            $table->string('hostname', 100)->nullable();
             $table->timestamps();
         });
     }

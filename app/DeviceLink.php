@@ -29,6 +29,6 @@ class DeviceLink extends Model
 
     public function device_link_state_logs()
     {
-        return $this->hasMany('App\DeviceLinkStateLogs');
+        return $this->hasMany('App\DeviceLinkStateLog');
     }
 }
