@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIpColumnToDeviceTable extends Migration
+class AddDevColumnToDevicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddIpColumnToDeviceTable extends Migration
     public function up()
     {
         Schema::table('devices', function (Blueprint $table) {
-            $table->addColumn('bigInteger', 'ipv4',['autoIncrement'=>false, 'unsigned'=>true])->nullable();
-            $table->addColumn('binary', 'ipv6')->nullable();
+            $table->addColumn('string', 'dev', ['length'=>20]);
         });
     }
 
@@ -27,8 +26,7 @@ class AddIpColumnToDeviceTable extends Migration
     public function down()
     {
         Schema::table('devices', function (Blueprint $table) {
-            $table->dropColumn('ipv4');
-            $table->dropColumn('ipv6');
+            //
         });
     }
 }

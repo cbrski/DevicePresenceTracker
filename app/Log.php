@@ -9,7 +9,13 @@ class Log extends Model
 {
     use HasFactory;
 
+    const SUCCESS   = 'SUCCESS';
+    const FAILED    = 'FAILED';
+
     public $timestamps = false;
 
-    public $fillable = ['timestamp', 'message'];
+    public $fillable = [
+        'timestamp',
+        'result'
+    ];
 }

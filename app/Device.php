@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'name',
+    ];
 
-    protected $fillable = ['name', 'ipv4', 'ipv6'];
-
-    public function device_macs()
+    public function device_links()
     {
-        return $this->hasMany('App\DeviceMac');
+        return $this->hasMany('App\DeviceLink');
     }
 
-    public function device_state_logs()
+    public function device_link_state_logs()
     {
-        return $this->hasMany('App\DeviceStateLog');
+        return $this->hasMany('App\DeviceLinkStateLog');
     }
 }

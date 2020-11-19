@@ -6,21 +6,23 @@
     </include>
   </coverage>
   <testsuites>
-<!--    <testsuite name="Unit">-->
-<!--      <directory suffix="Test.php">./tests/Unit</directory>-->
-<!--    </testsuite>-->
+
     <testsuite name="DatabaseStructure">
       <directory suffix="DatabaseStructureTest.php">./tests/Unit</directory>
     </testsuite>
     <testsuite name="TimestampFileHelper">
-      <directory suffix="TimestampFileHelperTest.php">./tests/Unit</directory>
+        <directory suffix="TimestampFileHelperTest.php">./tests/Unit</directory>
     </testsuite>
     <testsuite name="RouterApi">
-      <directory suffix="RouterApiTest.php">./tests/Unit</directory>
+        <directory suffix="RouterApiTest.php">./tests/Unit</directory>
     </testsuite>
-<!--    <testsuite name="Feature">-->
-<!--      <directory suffix="Test.php">./tests/Feature</directory>-->
-<!--    </testsuite>-->
+    <testsuite name="DeviceMapperDotEnvHelper">
+      <directory suffix="DeviceMapperDotEnvHelperTest.php">./tests/Unit</directory>
+    </testsuite>
+    <testsuite name="DeviceStateInput">
+      <directory suffix="DeviceStateInputTest.php">./tests/Unit</directory>
+    </testsuite>
+
   </testsuites>
   <php>
     <server name="APP_ENV" value="testing"/>

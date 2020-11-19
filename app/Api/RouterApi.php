@@ -161,11 +161,11 @@ class RouterApi
         return $loginResponse;
     }
 
-    public function authorize(): bool
+    public function authorize()
     {
         if ($this->isOngoingSession())
         {
-            return true;
+            return $this;
         }
 
         if (! ($result = $this->sendLoginRequest($this->prepareLoginRequestBody()) ))
@@ -179,7 +179,7 @@ class RouterApi
         }
 
         $this->keepToken($loginResponse->result);
-        return true;
+        return $this;
     }
 
     public function getToken()
