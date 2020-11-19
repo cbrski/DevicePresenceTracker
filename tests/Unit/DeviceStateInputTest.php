@@ -151,7 +151,7 @@ class DeviceStateInputTest extends TestCase
             'lladdr' => '00:00:00:00:00:00',
             'hostname' => null
         ]);
-        $this->assertTrue(strlen($result) == 8);
+        $this->assertTrue(strlen($result) == DeviceStateInput::UNDEFINED_DEVICE_NAME_LENGTH);
     }
 
     public function testDatabaseNewDevice()
@@ -271,7 +271,7 @@ class DeviceStateInputTest extends TestCase
         ]);
         $this->assertInstanceOf(Device::class, $device);
         $this->_assertCount(1,0,0);
-        $this->assertTrue(strlen($device->name) == 8);
+        $this->assertTrue(strlen($device->name) == DeviceStateInput::UNDEFINED_DEVICE_NAME_LENGTH);
 
         $device = $this->invokeReflectedMethod($_method, [
             'lladdr' => self::LLADDR_1,
@@ -520,5 +520,4 @@ class DeviceStateInputTest extends TestCase
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_UPDATE_OFFLINE, $result);
     }
-
 }
