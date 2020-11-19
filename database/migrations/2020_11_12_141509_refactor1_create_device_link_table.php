@@ -24,6 +24,7 @@ class Refactor1CreateDeviceLinkTable extends Migration
             $table->binary('ipv6')->nullable();
             $table->string('hostname', 100)->nullable();
             $table->timestamps();
+            $table->unique('lladdr');
         });
     }
 
