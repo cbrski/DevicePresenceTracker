@@ -19,22 +19,41 @@
             @foreach($devices as $device)
                 <div class="col mb-4">
 
-                        @switch($device['lastUsedLink']['state'])
-                            @case('reachable')
-                                    <div class="card bg-success">
-                                    @break
-                            @case('stale')
-                                    <div class="card bg-warning">
-                                    @break
-                            @case('delay')
-                                    <div class="card bg-warning">
-                                    @break
-                            @case('failed')
-                                    <div class="card bg-danger">
-                                    @break
-                            @default
-                                    <div class="card bg-secondary">
-                        @endswitch
+                        @if(strstr($device['lastUsedLink']['dev'], 'wlan'))
+                            @switch($device['lastUsedLink']['state'])
+                                @case('reachable')
+                                        <div class="card bg-success">
+                                        @break
+                                @case('stale')
+                                        <div class="card bg-warning">
+                                        @break
+                                @case('delay')
+                                        <div class="card bg-warning">
+                                        @break
+                                @case('failed')
+                                        <div class="card bg-danger">
+                                        @break
+                                @default
+                                        <div class="card bg-secondary">
+                            @endswitch
+                        @else
+                            @switch($device['lastUsedLink']['state'])
+                                @case('reachable')
+                                        <div class="card bg-success">
+                                        @break
+                                @case('stale')
+                                        <div class="card bg-success">
+                                        @break
+                                @case('delay')
+                                        <div class="card bg-success">
+                                        @break
+                                @case('failed')
+                                        <div class="card bg-danger">
+                                        @break
+                                @default
+                                        <div class="card bg-secondary">
+                            @endswitch
+                        @endif
 
                         <div class="card-header" style="font-weight: bold">
                             <h3>
@@ -43,7 +62,7 @@
                                 </span>
                                 <span class="badge badge-secondary">
                                     @php
-                                        echo date("Y-m-d H:i:s", $device['lastUsedLink']['timestamp'])
+                                        echo date("H:i", $device['lastUsedLink']['timestamp'])
                                     @endphp
                                 </span>
                             </h3>
@@ -83,7 +102,7 @@
                                             </span>
                                             <span class="badge badge-light">
                                                 @php
-                                                    echo date('Y-m-d H:i:s', $link['timestamp'])
+                                                    echo date('H:i:s d-m-Y', $link['timestamp'])
                                                 @endphp
                                             </span>
                                         </li>
