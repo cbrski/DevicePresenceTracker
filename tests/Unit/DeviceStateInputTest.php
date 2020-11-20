@@ -7,6 +7,7 @@ use App\DeviceLink;
 use App\DeviceLinkStateLog;
 use App\StorageBroker\DeviceStateInput;
 use App\StorageBroker\Helpers\DeviceMapperDotEnvHelper;
+use App\Helpers\IpAddressInversion;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -48,7 +49,7 @@ class DeviceStateInputTest extends TestCase
         $this->assertDatabaseHas(
             (new DeviceLink())->getTable(),
             [
-                'ipv4' => ip2long($args['ip']),
+                'ipv4' => IpAddressInversion::ip2long($args['ip']),
                 'dev' => $args['dev'],
                 'lladdr' => $args['lladdr'],
                 'hostname' => $args['hostname'],

@@ -8,6 +8,7 @@ use App\DeviceLinkStateLog;
 use App\Log;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Helpers\IpAddressInversion;
 
 class DatabaseStructureTest extends TestCase
 {
@@ -15,6 +16,8 @@ class DatabaseStructureTest extends TestCase
 
     public function testWorkingRelationships()
     {
+        $ip = '192.168.100.100';
+
         $device1 = new Device([
             'name' => 'laptop_1',
         ]);
@@ -24,7 +27,7 @@ class DatabaseStructureTest extends TestCase
             'device_id' => $device1->id,
             'lladdr' => '00:00:00:11:11:11',
             'dev' => 'eth1',
-            'ipv4' => ip2long('192.168.100.100'),
+            'ipv4' => $ip,
             'hostname' => 'computer',
         ]);
         $device_link1->save();
@@ -49,6 +52,7 @@ class DatabaseStructureTest extends TestCase
             [
                 'device_id' => $device1->id,
                 'hostname' => 'computer',
+                'ipv4' => IpAddressInversion::ip2long($ip),
             ]
         );
         $this->assertDatabaseHas(
@@ -87,8 +91,7 @@ class DatabaseStructureTest extends TestCase
 
     public function testStoringIpv4Address()
     {
-        $ipv4['string'] = '192.168.50.40';
-        $ipv4['int'] = ip2long($ipv4['string']);
+        $ip = '192.168.50.40';
 
         $device1 = new Device(['name'=>'laptop_1']);
         $device1->save();
@@ -97,14 +100,13 @@ class DatabaseStructureTest extends TestCase
             'device_id' => $device1->id,
             'name' => 'laptop_1',
             'lladdr' => 'test',
-            'ipv4' => ip2long($ipv4['string']),
+            'ipv4' => $ip,
             'dev' => 'eth20',
             'hostname' => 'computer',
         ]);
         $device_link1->save();
 
-        $this->assertEquals($ipv4['int'], $device_link1->ipv4);
-        $this->assertEquals(long2ip($device_link1->ipv4), $ipv4['string']);
+        $this->assertEquals($ip, $device_link1->ipv4);
     }
 
     public function testWorkingLogTable()

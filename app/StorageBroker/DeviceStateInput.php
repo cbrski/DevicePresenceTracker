@@ -7,6 +7,7 @@ namespace App\StorageBroker;
 use App\Device;
 use App\DeviceLink;
 use App\DeviceLinkStateLog;
+use App\Helpers\IpAddressInversion;
 use App\StorageBroker\Helpers\DeviceMapperDotEnvHelper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -95,7 +96,7 @@ class DeviceStateInput
         {
             if ($valDatabase == 'ipv4')
             {
-                $deviceLink->{$valDatabase} = ip2long($neighbour->ip);
+                $deviceLink->{$valDatabase} = $neighbour->ip;
             }
             else
             {
@@ -151,7 +152,7 @@ class DeviceStateInput
         DB::beginTransaction();
         try {
             $deviceLink = $this->getDeviceLink([
-                [self::_IPV4, '=', ip2long($neighbour->{self::_IP})],
+                [self::_IPV4, '=', IpAddressInversion::ip2long($neighbour->{self::_IP})],
                 [self::_DEV, '=', $neighbour->{self::_DEV}],
             ]);
             $this->updateState($deviceLink, $neighbour->state);
@@ -182,7 +183,7 @@ class DeviceStateInput
             'device_id' =>  $device->id,
             'lladdr' =>     $neighbour->{self::_LLADDR},
             'dev' =>        $neighbour->{self::_DEV},
-            'ipv4' =>       ip2long($neighbour->{self::_IP}),
+            'ipv4' =>       $neighbour->{self::_IP},
             'hostname' =>   $neighbour->{self::_HOSTNAME},
         ]);
         $deviceLink->save();
@@ -245,7 +246,7 @@ class DeviceStateInput
             {
                  $deviceLink = DeviceLink::where([
                     [self::_DEV, '=', $dev],
-                    [self::_IPV4, '=', ip2long($ip)]
+                    [self::_IPV4, '=', IpAddressInversion::ip2long($ip)]
                 ])->get();
                 return ! $deviceLink->isEmpty();
             }
