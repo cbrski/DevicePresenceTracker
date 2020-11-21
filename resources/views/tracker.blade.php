@@ -77,7 +77,7 @@
                                             bg-danger
                                             @break
                                 @default
-                                            secondary
+                                            bg-secondary
                             @endswitch
                         @else
                             @switch($device['lastUsedLink']['state'])
@@ -90,7 +90,7 @@
                                             bg-danger
                                             @break
                                 @default
-                                            secondary
+                                            bg-secondary
                             @endswitch
                         @endif
                         ">
