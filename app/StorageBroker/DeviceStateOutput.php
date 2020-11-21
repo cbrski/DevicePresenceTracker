@@ -12,7 +12,7 @@ class DeviceStateOutput
     public function get()
     {
         $data = [];
-        $devices = Device::all();
+        $devices = Device::query()->orderBy('name', 'asc')->get();
         foreach ($devices as $d)
         {
             $out['deviceName'] = $d->name;
