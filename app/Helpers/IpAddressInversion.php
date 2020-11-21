@@ -24,15 +24,15 @@ class IpAddressInversion
     {
         $query = 'SELECT INET_ATON(\''.$ip_address.'\')';
         $result = DB::select($query);
-        $long = $result[0]->{substr($query, -(strlen($query)-strlen('SELECT ')))};
+        $long = $result[0]->{self::stripSelectQuery($query)};
         return $long;
     }
 
-    public static function long2ip(int $proper_address)
+    public static function long2ip(string $proper_address)
     {
         $query = 'SELECT INET_NTOA('.$proper_address.')';
         $result = DB::select($query);
-        $string = $result[0]->{substr($query, -(strlen($query)-strlen('SELECT ')))};
+        $string = $result[0]->{self::stripSelectQuery($query)};
         return $string;
     }
 }
