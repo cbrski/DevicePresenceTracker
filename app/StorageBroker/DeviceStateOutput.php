@@ -5,31 +5,60 @@ namespace App\StorageBroker;
 
 
 use App\Device;
-use App\Helpers\IpAddressInversion;
+use App\DeviceLink;
+use App\DeviceLinkStateLog;
+use Illuminate\Database\Eloquent\Collection;
 
 class DeviceStateOutput
 {
+    private function getDevices(): Collection
+    {
+        return Device::query()->orderBy('name', 'asc')->get();
+    }
+
+    private function getLastUsedLinkByDevice(Device $device): DeviceLinkStateLog
+    {
+        return $device->device_link_state_logs->toQuery()->orderBy('timestamp', 'desc')->limit(1)->get()->first();
+    }
+
+    private function fillDataWithDevice(Device $device): array
+    {
+        $lastUsedLink = $this->getLastUsedLinkByDevice($device);
+        $l['state'] = $lastUsedLink->state;
+        $l['dev'] = $lastUsedLink->device_link->dev;
+        $l['timestamp'] = $lastUsedLink->timestamp;
+
+        $t['deviceName'] = $device->name;
+        $t['lastUsedLink'] = $l;
+        return $t;
+    }
+
+    private function getLastStateByDeviceLink(DeviceLink $deviceLink): DeviceLinkStateLog
+    {
+        return $deviceLink->device_link_state_logs->toQuery()->orderBy('timestamp', 'desc')->limit(1)->get()->first();
+    }
+
+    private function fillDataWithDeviceLink(DeviceLink $deviceLink): array
+    {
+        $t['lladdr'] = $deviceLink->lladdr;
+        $t['dev'] = $deviceLink->dev;
+        $t['ip'] = $deviceLink->ipv4;
+        $t['hostname'] = $deviceLink->hostname;
+        $state = $this->getLastStateByDeviceLink($deviceLink);
+        $t['state'] = $state->state;
+        $t['timestamp'] = $state->timestamp;
+        return $t;
+    }
+
     public function get()
     {
         $data = [];
-        $devices = Device::query()->orderBy('name', 'asc')->get();
-        foreach ($devices as $d)
+        foreach ($this->getDevices() as $device)
         {
-            $out['deviceName'] = $d->name;
-            $lastUsedLink = $d->device_link_state_logs->toQuery()->orderBy('timestamp', 'desc')->limit(1)->get()->first();
-            $out['lastUsedLink']['state'] = $lastUsedLink->state;
-            $out['lastUsedLink']['dev'] = $lastUsedLink->device_link->dev;
-            $out['lastUsedLink']['timestamp'] = $lastUsedLink->timestamp;
-            foreach ($d->device_links as $dl)
+            $out = $this->fillDataWithDevice($device);
+            foreach ($device->device_links as $deviceLink)
             {
-                $b['lladdr'] = $dl->lladdr;
-                $b['dev'] = $dl->dev;
-                $b['ip'] = $dl->ipv4;
-                $b['hostname'] = $dl->hostname;
-                $dlsl = $dl->device_link_state_logs->toQuery()->orderBy('timestamp', 'desc')->limit(1)->get()->first();
-                $b['state'] = $dlsl->state;
-                $b['timestamp'] = $dlsl->timestamp;
-                $out['links'][] = $b;
+                $out['links'][] = $this->fillDataWithDeviceLink($deviceLink);
             }
             $data[] = $out;
             unset($out['links']);
