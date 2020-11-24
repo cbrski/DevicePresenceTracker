@@ -35,12 +35,12 @@ class DeviceStateOutput
 
     private function fillDataWithDeviceLink(DeviceLink $deviceLink): array
     {
+        $state = $this->getLastStateByDevice($deviceLink->device);
+        $t['state'] = $state->state;
         $t['lladdr'] = $deviceLink->lladdr;
         $t['dev'] = $deviceLink->dev;
         $t['ip'] = $deviceLink->ipv4;
         $t['hostname'] = $deviceLink->hostname;
-        $state = $this->getLastStateByDevice($deviceLink->device);
-        $t['state'] = $state->state;
         $t['timestamp'] = $state->timestamp;
         return $t;
     }
