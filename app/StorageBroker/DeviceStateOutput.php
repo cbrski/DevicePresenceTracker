@@ -16,26 +16,26 @@ class DeviceStateOutput
         return Device::query()->orderBy('name', 'asc')->get();
     }
 
-    private function getLastUsedLinkByDevice(Device $device): DeviceLinkStateLog
+    private function getLastStateByDevice(Device $device): DeviceLinkStateLog
     {
         return $device->device_link_state_logs->toQuery()->orderBy('timestamp', 'desc')->limit(1)->get()->first();
-    }
-
-    private function fillDataWithDevice(Device $device): array
-    {
-        $lastUsedLink = $this->getLastUsedLinkByDevice($device);
-        $l['state'] = $lastUsedLink->state;
-        $l['dev'] = $lastUsedLink->device_link->dev;
-        $l['timestamp'] = $lastUsedLink->timestamp;
-
-        $t['deviceName'] = $device->name;
-        $t['lastUsedLink'] = $l;
-        return $t;
     }
 
     private function getLastStateByDeviceLink(DeviceLink $deviceLink): DeviceLinkStateLog
     {
         return $deviceLink->device_link_state_logs->toQuery()->orderBy('timestamp', 'desc')->limit(1)->get()->first();
+    }
+
+    private function fillDataWithDevice(Device $device): array
+    {
+        $lastState = $this->getLastStateByDevice($device);
+        $l['state'] = $lastState->state;
+        $l['dev'] = $lastState->device_link->dev;
+        $l['timestamp'] = $lastState->timestamp;
+
+        $t['deviceName'] = $device->name;
+        $t['lastUsedLink'] = $l;
+        return $t;
     }
 
     private function fillDataWithDeviceLink(DeviceLink $deviceLink): array
