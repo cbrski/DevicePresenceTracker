@@ -21,11 +21,6 @@ class DeviceStateOutput
         return $device->device_link_state_logs->toQuery()->orderBy('timestamp', 'desc')->limit(1)->get()->first();
     }
 
-    private function getLastStateByDeviceLink(DeviceLink $deviceLink): DeviceLinkStateLog
-    {
-        return $deviceLink->device_link_state_logs->toQuery()->orderBy('timestamp', 'desc')->limit(1)->get()->first();
-    }
-
     private function fillDataWithDevice(Device $device): array
     {
         $lastState = $this->getLastStateByDevice($device);
@@ -44,7 +39,7 @@ class DeviceStateOutput
         $t['dev'] = $deviceLink->dev;
         $t['ip'] = $deviceLink->ipv4;
         $t['hostname'] = $deviceLink->hostname;
-        $state = $this->getLastStateByDeviceLink($deviceLink);
+        $state = $this->getLastStateByDevice($deviceLink->device);
         $t['state'] = $state->state;
         $t['timestamp'] = $state->timestamp;
         return $t;
