@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Api\Structure\Neighbour;
 use App\Device;
 use App\DeviceLink;
 use App\DeviceLinkStateLog;
@@ -84,7 +85,7 @@ class DeviceStateInputTest extends TestCase
                 new DeviceMapperDotEnvHelper()
             ),
             [
-                'neighbour' => (object) $neighbourPlus
+                'neighbour' => (new Neighbour((object) $neighbourPlus))
             ]
         );
         $this->assertTrue($result);
@@ -293,13 +294,13 @@ class DeviceStateInputTest extends TestCase
         $_method = 'newDeviceLink';
         $deviceLink = $this->invokeReflectedMethod($_method, [
             'device' => $device,
-            'neighbour' => (object) [
+            'neighbour' => (new Neighbour((object) [
                 'ip' => self::IP_1,
                 'dev' => self::DEV_1,
                 'lladdr' => self::LLADDR_1,
                 'state' => DeviceLinkStateLog::STATE_REACHABLE,
                 'hostname' => self::HOSTNAME_1,
-            ]
+            ]))
         ]);
         $this->_assertCount(2,1,0);
         $this->assertDatabaseHas(
@@ -445,79 +446,79 @@ class DeviceStateInputTest extends TestCase
         $this->testDatabaseNewDevice();
 
         $result = $this->invokeReflectedMethod($_method, [
-            'neighbour' => (object) [
+            'neighbour' => (new Neighbour((object) [
                 'ip' => self::IP_2,
                 'dev' => self::DEV_2,
                 'lladdr' => self::LLADDR_2,
                 'state' => DeviceLinkStateLog::STATE_DELAY,
                 'hostname' => self::HOSTNAME_2,
-            ],
+            ])),
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_NEW, $result);
 
         $result = $this->invokeReflectedMethod($_method, [
-            'neighbour' => (object) [
+            'neighbour' => (new Neighbour((object) [
                 'ip' => self::IP_2,
                 'dev' => self::DEV_2,
                 'lladdr' => self::LLADDR_1,
                 'state' => DeviceLinkStateLog::STATE_DELAY,
                 'hostname' => self::HOSTNAME_2,
-            ],
+            ])),
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_UPDATE_ONLINE, $result);
 
         $result = $this->invokeReflectedMethod($_method, [
-            'neighbour' => (object) [
+            'neighbour' => (new Neighbour((object) [
                 'ip' => self::IP_1,
                 'dev' => self::DEV_1,
                 'lladdr' => self::LLADDR_1,
                 'state' => DeviceLinkStateLog::STATE_DELAY,
                 'hostname' => self::HOSTNAME_1,
-            ],
+            ])),
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_UPDATE_ONLINE, $result);
 
         $result = $this->invokeReflectedMethod($_method, [
-            'neighbour' => (object) [
+            'neighbour' => (new Neighbour((object) [
                 'ip' => self::IP_2,
                 'dev' => self::DEV_1,
                 'lladdr' => self::LLADDR_1,
                 'state' => DeviceLinkStateLog::STATE_DELAY,
                 'hostname' => self::HOSTNAME_2,
-            ],
+            ])),
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_UPDATE_ONLINE, $result);
 
         $result = $this->invokeReflectedMethod($_method, [
-            'neighbour' => (object) [
+            'neighbour' => (new Neighbour((object) [
                 'ip' => self::IP_1,
                 'dev' => self::DEV_1,
                 'lladdr' => self::LLADDR_1,
                 'state' => DeviceLinkStateLog::STATE_FAILED,
                 'hostname' => self::HOSTNAME_1,
-            ],
+            ])),
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_UPDATE_OFFLINE, $result);
 
         $result = $this->invokeReflectedMethod($_method, [
-            'neighbour' => (object) [
+            'neighbour' => (new Neighbour((object) [
                 'ip' => self::IP_1,
                 'dev' => self::DEV_1,
                 'lladdr' => null,
                 'state' => DeviceLinkStateLog::STATE_FAILED,
                 'hostname' => self::HOSTNAME_1,
-            ],
+            ])),
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_UPDATE_OFFLINE, $result);
 
         $result = $this->invokeReflectedMethod($_method, [
-            'neighbour' => (object) [
+            'neighbour' => (new Neighbour((object) [
                 'ip' => self::IP_1,
                 'dev' => self::DEV_1,
                 'lladdr' => null,
                 'state' => DeviceLinkStateLog::STATE_FAILED,
                 'hostname' => null,
-            ],
+            ])),
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_UPDATE_OFFLINE, $result);
     }

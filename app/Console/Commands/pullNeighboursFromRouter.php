@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Api\Helpers\SettingsHelper;
 use App\Api\Helpers\TimestampFileHelper;
 use App\Api\RouterApi;
+use App\Api\Structure\Neighbours;
 use App\StorageBroker\DeviceStateInput;
 use App\StorageBroker\Helpers\DeviceMapperDotEnvHelper;
 use GuzzleHttp\Client;
@@ -63,8 +64,9 @@ class pullNeighboursFromRouter extends Command
         );
         if ($routerApi->authorize())
         {
-            $neighbours = $routerApi->getNeighbours();
+            $rawData = $routerApi->getNeighbours();
             $deviceStateInput = new DeviceStateInput(new DeviceMapperDotEnvHelper());
+            $neighbours = new Neighbours($rawData);
             if ($deviceStateInput->update($neighbours))
             {
                 return 0;

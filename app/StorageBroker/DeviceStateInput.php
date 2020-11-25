@@ -4,6 +4,8 @@
 namespace App\StorageBroker;
 
 
+use App\Api\Structure\Neighbour;
+use App\Api\Structure\Neighbours;
 use App\Device;
 use App\DeviceLink;
 use App\DeviceLinkStateLog;
@@ -90,7 +92,7 @@ class DeviceStateInput
         return $deviceLink;
     }
 
-    private function updateDeviceLink(DeviceLink $deviceLink, \stdClass $neighbour): DeviceLink
+    private function updateDeviceLink(DeviceLink $deviceLink, Neighbour $neighbour): DeviceLink
     {
         foreach(['lladdr', 'dev', 'ipv4', 'hostname'] as $valDatabase)
         {
@@ -110,7 +112,7 @@ class DeviceStateInput
         return $deviceLink;
     }
 
-    private function updateDevice(DeviceLink $deviceLink, \stdClass $neighbour): Device
+    private function updateDevice(DeviceLink $deviceLink, Neighbour $neighbour): Device
     {
         $device = $this->getDevice(['id', '=', $deviceLink->device_id]);
         $nameCurrent = $device->name;
@@ -127,7 +129,7 @@ class DeviceStateInput
         return $device;
     }
 
-    private function databaseDeviceUpdateOnline(\stdClass $neighbour): bool
+    private function databaseDeviceUpdateOnline(Neighbour $neighbour): bool
     {
         DB::beginTransaction();
         try {
@@ -147,7 +149,7 @@ class DeviceStateInput
         return true;
     }
 
-    private function databaseDeviceUpdateOffline(\stdClass $neighbour): bool
+    private function databaseDeviceUpdateOffline(Neighbour $neighbour): bool
     {
         DB::beginTransaction();
         try {
@@ -177,7 +179,7 @@ class DeviceStateInput
         return $device;
     }
 
-    private function newDeviceLink(Device $device, \stdClass $neighbour): DeviceLink
+    private function newDeviceLink(Device $device, Neighbour $neighbour): DeviceLink
     {
         $deviceLink = new DeviceLink([
             'device_id' =>  $device->id,
@@ -202,7 +204,7 @@ class DeviceStateInput
         return $deviceLinkStateLog;
     }
 
-    private function databaseDeviceNew(\stdClass $neighbour): bool
+    private function databaseDeviceNew(Neighbour $neighbour): bool
     {
         DB::beginTransaction();
         try {
@@ -257,7 +259,7 @@ class DeviceStateInput
         }
     }
 
-    private function decideWhatAction(\stdClass $neighbour): int
+    private function decideWhatAction(Neighbour $neighbour): int
     {
         $lladdr = $neighbour->{self::_LLADDR};
         $dev = $neighbour->{self::_DEV};
@@ -286,7 +288,7 @@ class DeviceStateInput
         return 0;
     }
 
-    private function iterateOverData(array $neighbours): void
+    private function iterateOverData(Neighbours $neighbours): void
     {
         foreach ($neighbours as $key => $neighbour)
         {
@@ -315,9 +317,9 @@ class DeviceStateInput
         return $this->exceptions;
     }
 
-    public function update(\stdClass $_routerData): bool
+    public function update(Neighbours $neighbours): bool
     {
-        $this->iterateOverData($_routerData->neighbours);
+        $this->iterateOverData($neighbours);
         if (empty($this->exceptions))
         {
             return true;
