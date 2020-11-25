@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Api\Structure\Neighbour;
+use App\Api\Structure\Neighbours;
 use App\DeviceLinkStateLog;
 use Tests\TestCase;
 
@@ -47,6 +48,19 @@ class RouterDataObjectsTest extends TestCase
         return $this->rawNeighbour[$i][$key];
     }
 
+    private function routerApiGetNeighbours(): \stdClass
+    {
+        $s = [];
+        for ($i=0 ; $i<count($this->rawNeighbour); ++$i)
+        {
+            $s[] = $this->getOneNeighbourFromRouter($i);
+        }
+        $d = new \stdClass();
+        $d->timestamp = time();
+        $d->neighbours = $s;
+        return $d;
+    }
+
     public function testNeighbour()
     {
         $s = $this->getOneNeighbourFromRouter(0);
@@ -58,6 +72,22 @@ class RouterDataObjectsTest extends TestCase
         $this->assertEquals($this->getVal(0, 'lladdr'), $n->lladdr);
         $this->assertEquals($this->getVal(0, 'dev'), $n->dev);
         $this->assertEquals(false, $n->thisDoesNotExist);
+    }
+
+    public function testNeighbours()
+    {
+        $d = $this->routerApiGetNeighbours();
+        $ns = new Neighbours($d);
+        foreach ($ns as $key => $neighbour)
+        {
+            $n = $neighbour;
+            $this->assertEquals($this->getVal($key, 'ip'), $n->ip);
+            $this->assertEquals($this->getVal($key, 'hostname'), $n->hostname);
+            $this->assertEquals($this->getVal($key, 'state'), $n->state);
+            $this->assertEquals($this->getVal($key, 'lladdr'), $n->lladdr);
+            $this->assertEquals($this->getVal($key, 'dev'), $n->dev);
+            $this->assertEquals(false, $n->thisDoesNotExist);
+        }
     }
 
 }
