@@ -44,22 +44,24 @@ class pullNeighboursFromRouter extends Command
      */
     public function handle()
     {
+        $key = 'OPENWRT_API_';
+
         $routerApi = new RouterApi(
             new Client(),
             new TimestampFileHelper(env('OPENWRT_API_FILE_TIMESTAMP_HELPER')),
             new SettingsHelper(
                 [
-                    'tokenString' => app(SettingsHelper::class)->tokenString,
-                    'tokenAcquisitionTimestamp' => app(SettingsHelper::class)->tokenAcquisitionTimestamp,
+                    'tokenString' =>                app(SettingsHelper::class)->tokenString,
+                    'tokenAcquisitionTimestamp' =>  app(SettingsHelper::class)->tokenAcquisitionTimestamp,
                 ]
             ),
             [
-                'login' => env('OPENWRT_API_LOGIN'),
-                'password' => env('OPENWRT_API_PASSWORD'),
-                'host' => env('OPENWRT_API_HOST'),
-                'url_auth' => env('OPENWRT_API_URL_AUTH'),
-                'url_neighbours' => env('OPENWRT_API_URL_NEIGHBOURS'),
-                'session_timeout' => env('OPENWRT_API_SESSION_TIMEOUT'),
+                'login' =>              env($key.'LOGIN'),
+                'password' =>           env($key.'PASSWORD'),
+                'host' =>               env($key.'HOST'),
+                'url_auth' =>           env($key.'URL_AUTH'),
+                'url_neighbours' =>     env($key.'URL_NEIGHBOURS'),
+                'session_timeout' =>    env($key.'SESSION_TIMEOUT'),
             ]
         );
         if ($routerApi->authorize())
@@ -71,10 +73,7 @@ class pullNeighboursFromRouter extends Command
             {
                 return 0;
             }
-            else
-            {
-                return 1;
-            }
+            return 1;
         }
     }
 }

@@ -7,7 +7,7 @@ use App\Api\Structure\Neighbours;
 use App\DeviceLinkStateLog;
 use Tests\TestCase;
 
-class RouterDataObjectsTest extends TestCase
+class NeighboursStructureTest extends TestCase
 {
     private array $rawNeighbour = [
         [
