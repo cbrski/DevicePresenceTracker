@@ -1,0 +1,13 @@
+config uhttpd main
+
+	option ubus_prefix	{{ $ubus_prefix }}
+	option ubus_socket	{{ $ubus_socket }}
+	option ubus_noauth	0
+	option ubus_cors	1
+
+	option script_timeout	60
+	option network_timeout	30
+	option http_keepalive	20
+	option tcp_keepalive	1
+
+

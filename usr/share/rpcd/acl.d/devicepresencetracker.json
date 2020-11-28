@@ -1,0 +1,12 @@
+{
+	"device_presence_tracker": {
+		"description": "Access info about currently connected devices",
+		"read": {
+			"ubus": {
+				"DevicePresenceTracker": [
+					"getNeighbours"
+				]
+			}
+		}
+	}
+}
