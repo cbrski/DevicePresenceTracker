@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Api\Structure\Neighbour;
+use App\Api\Structure\Neighbours;
 use App\Device;
 use App\DeviceLink;
 use App\DeviceLinkStateLog;
@@ -100,9 +101,9 @@ class DeviceStateInputTest extends TestCase
     private function checkPassingNeighbour(
         string $privateMethod,
         array $neighbourPlus,
-        $deviceCount,
-        $deviceLinkCount,
-        $deviceLinkStateLogCount
+        int $deviceCount,
+        int $deviceLinkCount,
+        int $deviceLinkStateLogCount
     )
     {
         $this->passNeighbour($privateMethod, $neighbourPlus);
@@ -156,17 +157,32 @@ class DeviceStateInputTest extends TestCase
         $this->assertTrue(strlen($result) == DeviceStateInput::UNDEFINED_DEVICE_NAME_LENGTH);
     }
 
-    public function testDatabaseNewDevice()
+    public function testDatabaseNewDevice(int $key = 1, int $count = 1): void
     {
-        $neighbourPlus_1 = [
-            'ip' => self::IP_1,
-            'dev' => self::DEV_1,
-            'lladdr' => self::LLADDR_1,
-            'state' => self::STATE_1,
-            'hostname' => self::HOSTNAME_1,
-            'name' => self::HOSTNAME_1,
-        ];
-        $this->checkPassingNeighbour('databaseDeviceNew', $neighbourPlus_1, 1, 1, 1);
+        $neighbourPlus = [];
+        switch($key) {
+            case 1:
+                $neighbourPlus = [
+                    'ip' =>         self::IP_1,
+                    'dev' =>        self::DEV_1,
+                    'lladdr' =>     self::LLADDR_1,
+                    'state' =>      self::STATE_1,
+                    'hostname' =>   self::HOSTNAME_1,
+                    'name' =>       self::HOSTNAME_1,
+                ];
+                break;
+            case 2:
+                $neighbourPlus = [
+                    'ip' =>         self::IP_2,
+                    'dev' =>        self::DEV_2,
+                    'lladdr' =>     self::LLADDR_2,
+                    'state' =>      self::STATE_2,
+                    'hostname' =>   self::HOSTNAME_2,
+                    'name' =>       self::HOSTNAME_2,
+                ];
+                break;
+        };
+        $this->checkPassingNeighbour('databaseDeviceNew', $neighbourPlus, $count, $count, $count);
     }
 
     public function testDatabaseDeviceUpdateOnline()
@@ -521,5 +537,46 @@ class DeviceStateInputTest extends TestCase
             ])),
         ]);
         $this->assertEquals(DeviceStateInput::ACTION_DEVICE_UPDATE_OFFLINE, $result);
+    }
+
+    private function getNeighboursObject(int $timestamp, array $neighbours): Neighbours
+    {
+        $oo = [];
+        foreach ($neighbours as $n)
+        {
+            $oo[] = (object) [
+                'ip' => $n['ip'],
+                'dev' => $n['dev'],
+                'lladdr' => $n['lladdr'],
+                'state' => $n['state'],
+                'hostname' => $n['hostname'],
+            ];
+        }
+        $o = (object) [
+            'timestamp' => $timestamp,
+            'neighbours' => $oo
+        ];
+        return new Neighbours($o);
+    }
+
+    public function testIntegrationTestSetOfflineState()
+    {
+        $this->testDatabaseNewDevice(1, 1);
+        $this->testDatabaseNewDevice(2, 2);
+
+        $neighbours = $this->getNeighboursObject(time(), [
+            [
+                'ip' => self::IP_1,
+                'dev' => self::DEV_1,
+                'lladdr' => self::LLADDR_1,
+                'state' => self::STATE_1,
+                'hostname' => self::HOSTNAME_1,
+            ]
+        ]);
+        $this->invokeReflectedMethod('update', [
+            'neighbours' => $neighbours
+        ]);
+
+        $this->assertDatabaseHas((new DeviceLinkStateLog())->getTable(), ['state' => DeviceLinkStateLog::STATE_OFFLINE]);
     }
 }
