@@ -9,8 +9,10 @@ GET_NEIGHBOURS() {
 	out="${out}\"timestamp\":$(date +%s),"
 	out="${out}\"neighbours\":["
 
-	data=$(COMMAND_DATA)
+	data=$(COMMAND_IP_NEIGH)
 	data_dhcp=$(COMMAND_DHCP_LEASES)
+	data_iwinfo=$(COMMAND_IWINFO_ASSOCLIST)
+
 	line_count=$( echo "$data" | wc -l )
 	line_current=1
 	IFS='
@@ -88,11 +90,14 @@ GET_NEIGHBOURS() {
 		line_current=$(( line_current+1 ))
 
 
-		# if it is likely that the wire connected device is no longer using network,
-		# we will speed up the "state=FAILED" result which will be visible next time
-
 		if [ "$DEV" != "eth0" ] && [ "$DEV" != "wlan0" ] && [ "$STATE" == "STALE" ]
 		then
+			ping -c 1 ${IP} >/dev/null &
+		fi
+
+		echo $data_iwinfo | grep -i -q "${LLADDR}"
+		if [ $? -eq 1 ] && [ "$DEV" == "wlan0" ] && [ "$STATE" == "STALE" ]
+		then	
 			ping -c 1 ${IP} >/dev/null &
 		fi
 	done
