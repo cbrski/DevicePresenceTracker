@@ -74,6 +74,7 @@
                                             bg-warning
                                             @break
                                 @case('failed')
+                                @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
                                             bg-danger
                                             @break
                                 @default
@@ -87,6 +88,7 @@
                                             bg-success
                                             @break
                                 @case('failed')
+                                @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
                                             bg-danger
                                             @break
                                 @default
@@ -171,6 +173,7 @@
                                                         badge-warning
                                                         @break
                                             @case('failed')
+                                            @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
                                                         badge-danger
                                                         @break
                                             @default

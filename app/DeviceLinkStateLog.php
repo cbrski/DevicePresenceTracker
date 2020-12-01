@@ -16,6 +16,7 @@ class DeviceLinkStateLog extends Model
     const STATE_DELAY       = 'delay';
     const STATE_PROBE       = 'probe';
     const STATE_FAILED      = 'failed';
+    const STATE_OFFLINE      = '_offline';
 
     public $timestamps = false;
 

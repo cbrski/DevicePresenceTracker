@@ -307,6 +307,40 @@ class DeviceStateInput
         }
     }
 
+    private function isDeviceLinkInNeighbours(DeviceLink $deviceLink, Neighbours $neighbours): bool
+    {
+        foreach ($neighbours as $n)
+        {
+            if ($n->lladdr == $deviceLink->lladdr)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function setOfflineState(Neighbours $neighbours): void
+    {
+        DB::beginTransaction();
+        try {
+            foreach (DeviceLink::all() as $dl)
+            {
+                if ($this->getLastState($dl) != DeviceLinkStateLog::STATE_FAILED
+                    && ! $this->isDeviceLinkInNeighbours($dl, $neighbours))
+                {
+                    $this->setNewLastState($dl, DeviceLinkStateLog::STATE_OFFLINE);
+                }
+            }
+        }
+        catch (\Exception $e)
+        {
+            Log::critical(__CLASS__.':'.__METHOD__.': '.$e->getMessage());
+            DB::rollBack();
+            $this->exceptions[] = $e;
+        }
+        DB::commit();
+    }
+
     public function __construct(DeviceMapperDotEnvHelper $_deviceMapper)
     {
         $this->deviceMapper = $_deviceMapper;
@@ -320,10 +354,12 @@ class DeviceStateInput
     public function update(Neighbours $neighbours): bool
     {
         $this->iterateOverData($neighbours);
+        $this->setOfflineState($neighbours);
         if (empty($this->exceptions))
         {
             return true;
         }
+        $this->setOfflineState($neighbours);
         return false;
     }
 
