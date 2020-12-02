@@ -1,4 +1,4 @@
-####Router (OpenWrt)
+#### Router (OpenWrt)
 
 Dane pozyskujemy głównie dzięki komendzie:
 ```bash
@@ -19,7 +19,7 @@ Dane z routera można pobrać tylko po uwierzytelnieniu poprzez protokół RPC.
 
 Struktura plików na routerze dostępna jest w gałęzi 'router'.
 
-####Serwer
+#### Serwer
 
 :information_source: [Konfiguracja API dla połączenia z routerem](ROUTER_API_CONFIG.md)
 

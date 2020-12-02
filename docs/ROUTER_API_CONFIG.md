@@ -1,6 +1,4 @@
-##### PL
 ### Konfiguracja API routera
-
 
 ##### Wymagane klucze
 W pliku **.env** należy umieścić takie klucze jak:
