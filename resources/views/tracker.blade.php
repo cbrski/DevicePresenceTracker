@@ -66,14 +66,14 @@
                         <div class="card
                         @if(strstr($device['lastUsedLink']['dev'], 'wlan'))
                             @switch($device['lastUsedLink']['state'])
-                                @case('reachable')
+                                @case(\App\DeviceLinkStateLog::STATE_REACHABLE)
                                             bg-success
                                             @break
-                                @case('stale')
-                                @case('delay')
+                                @case(\App\DeviceLinkStateLog::STATE_STALE)
+                                @case(\App\DeviceLinkStateLog::STATE_DELAY)
                                             bg-warning
                                             @break
-                                @case('failed')
+                                @case(\App\DeviceLinkStateLog::STATE_FAILED)
                                 @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
                                             bg-danger
                                             @break
@@ -82,12 +82,12 @@
                             @endswitch
                         @else
                             @switch($device['lastUsedLink']['state'])
-                                @case('reachable')
-                                @case('stale')
-                                @case('delay')
+                                @case(\App\DeviceLinkStateLog::STATE_REACHABLE)
+                                @case(\App\DeviceLinkStateLog::STATE_STALE)
+                                @case(\App\DeviceLinkStateLog::STATE_DELAY)
                                             bg-success
                                             @break
-                                @case('failed')
+                                @case(\App\DeviceLinkStateLog::STATE_FAILED)
                                 @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
                                             bg-danger
                                             @break
@@ -165,14 +165,14 @@
 
                                         <span class="badge
                                         @switch($link['state'])
-                                            @case('reachable')
+                                            @case(\App\DeviceLinkStateLog::STATE_REACHABLE)
                                                         badge-success
                                                         @break
-                                            @case('stale')
-                                            @case('delay')
+                                            @case(\App\DeviceLinkStateLog::STATE_STALE)
+                                            @case(\App\DeviceLinkStateLog::STATE_DELAY)
                                                         badge-warning
                                                         @break
-                                            @case('failed')
+                                            @case(\App\DeviceLinkStateLog::STATE_FAILED)
                                             @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
                                                         badge-danger
                                                         @break
