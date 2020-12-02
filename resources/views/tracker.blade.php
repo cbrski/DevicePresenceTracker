@@ -11,14 +11,23 @@
 
         <title>Device Presence Tracker</title>
 
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
         <style>
-            a:hover {
-                text-decoration: none;
-                color: transparent;
+            @media (min-width: 1200px) {
+                html {
+                    max-width: 1500px;
+                    margin: 0 auto;
+                }
             }
 
             body {
                 background-color: white;
+            }
+
+            a:hover {
+                text-decoration: none;
+                color: transparent;
             }
 
             @media (prefers-color-scheme: light) {
@@ -68,10 +77,7 @@
         </style>
     </head>
     <body>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 row-own">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-own">
 
             @foreach($devices as $key => $device)
                 <div class="col mb-3 card-own">
