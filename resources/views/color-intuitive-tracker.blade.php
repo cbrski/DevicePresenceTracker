@@ -4,7 +4,7 @@
     @break
     @case(\App\DeviceLinkStateLog::STATE_STALE)
     @case(\App\DeviceLinkStateLog::STATE_DELAY)
-        badge wifi-stale
+        warning
     @break
     @case(\App\DeviceLinkStateLog::STATE_FAILED)
     @case(\App\DeviceLinkStateLog::STATE_OFFLINE)

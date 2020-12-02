@@ -60,6 +60,11 @@
                 line-height: 1;
                 margin-bottom: 0;
             }
+
+            .wifi-stale {
+                background: rgb(40,167,69);
+                background: linear-gradient(90deg, rgba(40,167,69,1) 60%, rgba(255,193,7,1) 90%);
+            }
         </style>
     </head>
     <body>
@@ -76,7 +81,7 @@
                         @if(strstr($device['lastUsedLink']['dev'], 'wlan'))
                             bg-@include('color-wifi-tracker', ['state' => $device['lastUsedLink']['state']])
                         @else
-                            bg-@include('color-eth-tracker', ['state' => $device['lastUsedLink']['state']])
+                            bg-@include('color-main-tracker', ['state' => $device['lastUsedLink']['state']])
                         @endif
                         ">
 
@@ -86,11 +91,7 @@
                                     {{ $device['deviceName'] }}
                                 </span>
                                 <span class="badge
-                                @if(strstr($device['lastUsedLink']['dev'], 'wlan'))
-                                    badge-@include('color-wifi-tracker', ['state' => $device['lastUsedLink']['state']])
-                                @else
-                                    badge-@include('color-eth-tracker', ['state' => $device['lastUsedLink']['state']])
-                                @endif
+                                badge-@include('color-main-tracker', ['state' => $device['lastUsedLink']['state']])
                                 right">
                                     @include('timestamp-ago-tracker', ['timestamp' => $device['lastUsedLink']['timestamp']])
                                 </span>
@@ -113,21 +114,7 @@
                                     <li class="list-group-item">
 
                                         <span class="badge
-                                        @switch($link['state'])
-                                            @case(\App\DeviceLinkStateLog::STATE_REACHABLE)
-                                                        badge-success
-                                                        @break
-                                            @case(\App\DeviceLinkStateLog::STATE_STALE)
-                                            @case(\App\DeviceLinkStateLog::STATE_DELAY)
-                                                        badge-warning
-                                                        @break
-                                            @case(\App\DeviceLinkStateLog::STATE_FAILED)
-                                            @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
-                                                        badge-danger
-                                                        @break
-                                            @default
-                                                        badge-secondary
-                                            @endswitch
+                                        badge-@include('color-intuitive-tracker', ['state' => $device['lastUsedLink']['state']])
                                         ">
                                             {{ $link['state'] }}
                                         </span>
