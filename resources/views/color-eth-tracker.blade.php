@@ -1,0 +1,13 @@
+@switch($device['lastUsedLink']['state'])
+    @case(\App\DeviceLinkStateLog::STATE_REACHABLE)
+    @case(\App\DeviceLinkStateLog::STATE_STALE)
+    @case(\App\DeviceLinkStateLog::STATE_DELAY)
+        success
+    @break
+    @case(\App\DeviceLinkStateLog::STATE_FAILED)
+    @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
+        danger
+    @break
+    @default
+        secondary
+@endswitch

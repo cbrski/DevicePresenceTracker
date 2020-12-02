@@ -51,6 +51,15 @@
                 padding: 0;
                 margin: 0;
             }
+
+            .right {
+                float: right;
+            }
+
+            h3, .h3 {
+                line-height: 1;
+                margin-bottom: 0;
+            }
         </style>
     </head>
     <body>
@@ -65,35 +74,9 @@
 
                         <div class="card
                         @if(strstr($device['lastUsedLink']['dev'], 'wlan'))
-                            @switch($device['lastUsedLink']['state'])
-                                @case(\App\DeviceLinkStateLog::STATE_REACHABLE)
-                                            bg-success
-                                            @break
-                                @case(\App\DeviceLinkStateLog::STATE_STALE)
-                                @case(\App\DeviceLinkStateLog::STATE_DELAY)
-                                            bg-warning
-                                            @break
-                                @case(\App\DeviceLinkStateLog::STATE_FAILED)
-                                @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
-                                            bg-danger
-                                            @break
-                                @default
-                                            bg-secondary
-                            @endswitch
+                            bg-@include('color-wifi-tracker', ['state' => $device['lastUsedLink']['state']])
                         @else
-                            @switch($device['lastUsedLink']['state'])
-                                @case(\App\DeviceLinkStateLog::STATE_REACHABLE)
-                                @case(\App\DeviceLinkStateLog::STATE_STALE)
-                                @case(\App\DeviceLinkStateLog::STATE_DELAY)
-                                            bg-success
-                                            @break
-                                @case(\App\DeviceLinkStateLog::STATE_FAILED)
-                                @case(\App\DeviceLinkStateLog::STATE_OFFLINE)
-                                            bg-danger
-                                            @break
-                                @default
-                                            bg-secondary
-                            @endswitch
+                            bg-@include('color-eth-tracker', ['state' => $device['lastUsedLink']['state']])
                         @endif
                         ">
 
@@ -102,48 +85,14 @@
                                 <span class="badge badge-light">
                                     {{ $device['deviceName'] }}
                                 </span>
-                                <span class="badge badge-secondary">
-                                    @php
-                                        $sec_diff = time() - $device['lastUsedLink']['timestamp'];
-
-                                        $r = (int) ($sec_diff/(86400*7));
-                                        $sec_diff-=$r*(86400*7);
-                                        if (!$r)
-                                        {
-                                            $r = (int) ($sec_diff/86400);
-                                            $sec_diff-=$r*86400;
-                                            if (!$r)
-                                            {
-                                                $r = (int) ($sec_diff/3600);
-                                                $sec_diff-=$r*3600;
-                                                if (!$r)
-                                                {
-                                                    $r = (int) ($sec_diff/60);
-                                                    $sec_diff-=$r*60;
-                                                    if (!$r)
-                                                    {
-                                                        echo 'now';
-                                                    }
-                                                    else
-                                                    {
-                                                        echo $r.'m ago';
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    echo $r.'h ago';
-                                                }
-                                            }
-                                            else
-                                            {
-                                                echo $r.'d ago';
-                                            }
-                                        }
-                                        else
-                                        {
-                                            echo $r.'w ago';
-                                        }
-                                    @endphp
+                                <span class="badge
+                                @if(strstr($device['lastUsedLink']['dev'], 'wlan'))
+                                    badge-@include('color-wifi-tracker', ['state' => $device['lastUsedLink']['state']])
+                                @else
+                                    badge-@include('color-eth-tracker', ['state' => $device['lastUsedLink']['state']])
+                                @endif
+                                right">
+                                    @include('timestamp-ago-tracker', ['timestamp' => $device['lastUsedLink']['timestamp']])
                                 </span>
                             </h3>
                         </div>
