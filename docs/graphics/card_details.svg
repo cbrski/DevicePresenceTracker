@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg2"
+   viewBox="0 0 306.48581 154.92093"
+   height="43.72213mm"
+   width="86.497108mm">
+  <defs
+     id="defs4" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-133.78573,-257.57649)"
+     id="layer1">
+    <rect
+       ry="6.2175207"
+       y="258.01678"
+       x="134.22603"
+       height="54.115417"
+       width="305.60522"
+       id="rect4136"
+       style="opacity:1;fill:#28a745;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.88059664;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21634617" />
+    <g
+       id="g4200">
+      <rect
+         style="opacity:1;fill:#f8f9fa;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.94400579;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21568627"
+         id="rect4136-3"
+         width="110.5229"
+         height="33.022636"
+         x="145.65422"
+         y="268.56317"
+         ry="3.8928702" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:31.84191513px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="154.34464"
+         y="297.2381"
+         id="text4155"><tspan
+           id="tspan4157"
+           x="154.34464"
+           y="297.2381">device</tspan></text>
+    </g>
+    <g
+       transform="translate(16.428571,-0.35714286)"
+       id="g4194">
+      <rect
+         style="opacity:1;fill:#f8f9fa;fill-opacity:0.07977205;fill-rule:nonzero;stroke:none;stroke-width:0.94400579;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21568627"
+         id="rect4136-3-3"
+         width="66.951477"
+         height="33.022636"
+         x="341.5986"
+         y="269.2746"
+         ry="3.8928702" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:28.29764557px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="346.92682"
+         y="293.14331"
+         id="text4155-6"><tspan
+           id="tspan4157-3"
+           x="346.92682"
+           y="293.14331"
+           style="fill:#ffffff;fill-opacity:1">now</tspan><tspan
+           x="346.92682"
+           y="328.51538"
+           id="tspan4192"
+           style="fill:#ffffff;fill-opacity:1" /></text>
+    </g>
+    <rect
+       ry="5.9204025"
+       y="313.52499"
+       x="134.37909"
+       height="98.379059"
+       width="305.2991"
+       id="rect4136-7"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1.1867255;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21634617" />
+    <rect
+       ry="6.2151837"
+       y="314.0011"
+       x="134.96872"
+       height="31.785715"
+       width="304.12729"
+       id="rect6902"
+       style="opacity:0.98999999;fill:#efefef;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21634617" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:31.84191513px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="150.71385"
+       y="333.68262"
+       id="text4155-5"><tspan
+         style="font-size:16.25px;fill:#676767;fill-opacity:1"
+         id="tspan4157-35"
+         x="150.71385"
+         y="333.68262">hostname</tspan><tspan
+         id="tspan6900"
+         style="font-size:16.25px"
+         x="150.71385"
+         y="353.99512" /></text>
+    <rect
+       ry="0"
+       y="339.65723"
+       x="134.19502"
+       height="1.2626985"
+       width="305.00293"
+       id="rect7604"
+       style="opacity:0.98999999;fill:#cacaca;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21634617" />
+    <rect
+       y="340.94604"
+       x="135.32445"
+       height="5.4759874"
+       width="303.52084"
+       id="rect7606"
+       style="opacity:0.98999999;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21634617" />
+    <rect
+       ry="0"
+       y="374.69687"
+       x="133.97406"
+       height="1.2626985"
+       width="305.00293"
+       id="rect7604-1"
+       style="opacity:0.98999999;fill:#cacaca;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21634617" />
+    <g
+       transform="translate(-32.460239,-6.5659916)"
+       id="g7900">
+      <g
+         transform="translate(0,-0.25253814)"
+         id="g7905">
+        <rect
+           ry="3.0189469"
+           y="357.50827"
+           x="184.47409"
+           height="14.898168"
+           width="62.376312"
+           id="rect4136-3-7"
+           style="opacity:1;fill:#28a745;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.94400579;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.21568627" />
+        <text
+           id="text4155-0"
+           y="369.25485"
+           x="190.50883"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25.38692665px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           xml:space="preserve"><tspan
+             style="font-size:11.25px;fill:#ffffff;fill-opacity:1"
+             y="369.25485"
+             x="190.50883"
+             id="tspan4157-9">reachable</tspan></text>
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:31.84191513px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="235.24086"
+       y="361.92694"
+       id="text4155-5-3"><tspan
+         id="tspan6900-0"
+         style="font-size:13.75px"
+         x="235.24086"
+         y="361.92694">timestamp</tspan></text>
+    <g
+       transform="translate(-2.0618762,-5.3571428)"
+       id="g7998">
+      <text
+         id="text4155-5-3-6"
+         y="403.34921"
+         x="153.16823"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:31.84191513px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="403.34921"
+           x="153.16823"
+           style="font-size:13.75px"
+           id="tspan7951">interface</tspan><tspan
+           y="420.53671"
+           x="153.16823"
+           style="font-size:16.25px"
+           id="tspan7955" /></text>
+      <text
+         id="text4155-5-3-6-6"
+         y="403.34921"
+         x="238.78238"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:31.84191513px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="403.34921"
+           x="238.78238"
+           style="font-size:13.75px"
+           id="tspan7955-8">IP address</tspan></text>
+      <text
+         id="text4155-5-3-6-6-7"
+         y="403.32858"
+         x="332.79477"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:31.84191513px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="403.32858"
+           x="332.79477"
+           style="font-size:13.75px"
+           id="tspan7955-8-9">MAC address</tspan></text>
+    </g>
+    <g
+       id="g8032">
+      <path
+         id="path7864"
+         d="m 325.42536,295.38905 c 3.46266,0 6.27977,2.81711 6.27977,6.27977 0,3.46266 -2.81711,6.27976 -6.27977,6.27976 -3.46266,0 -6.27976,-2.8171 -6.27976,-6.27976 0,-3.46266 2.8171,-6.27977 6.27976,-6.27977 z m 0,-1.25595 c -4.16159,0 -7.53571,3.37412 -7.53571,7.53572 0,4.16159 3.37412,7.53571 7.53571,7.53571 4.1616,0 7.53572,-3.37412 7.53572,-7.53571 0,-4.1616 -3.37412,-7.53572 -7.53572,-7.53572 z"
+         style="fill:#474747;fill-opacity:1" />
+      <g
+         id="g7594"
+         transform="matrix(0.86283069,-0.50549303,0.50549303,0.86283069,-112.67492,214.70936)">
+        <path
+           id="path7592"
+           d="m 344.99709,302.40644 c -1.5239,-0.32325 -5.90829,-1.15959 -7.10124,-1.39562 l 0,-4.50497 c 0,-2.08958 -1.72657,-3.79049 -3.84822,-3.79049 -2.12164,0 -3.84821,1.70091 -3.84821,3.79049 l 0,9.56537 c -0.71064,-0.431 -1.52389,-0.79658 -2.35767,-0.91715 -2.33715,-0.33608 -4.05602,1.20577 -4.05602,3.20428 0,1.0326 0.46563,2.06905 1.31096,2.9131 5.09503,5.09503 7.29621,6.57403 7.77211,12.22962 l 12.72348,0 0,-2.24223 c 0,-6.61123 3.84821,-7.73619 3.84821,-12.86458 0,-3.14014 -1.36098,-5.33234 -4.4434,-5.98782 z" />
+        <path
+           style="fill:#efefef;fill-opacity:1"
+           id="path7568"
+           d="m 345.45502,312.69657 c -1.05312,1.9023 -2.35767,4.2574 -2.42565,8.23902 l -7.86319,0 c -0.93127,-4.90006 -4.88723,-8.10434 -8.2557,-11.47922 -0.88252,-0.87996 -0.50412,-1.75735 0.56697,-1.7612 1.6201,-0.008 3.92518,2.41668 5.28745,4.11118 l 0,-15.3005 c 0,-0.66318 0.58749,-1.22502 1.28273,-1.22502 0.69525,0 1.28274,0.56184 1.28274,1.22502 l 0,8.91246 c 0,0.40406 0.32838,0.73244 0.73373,0.73244 0.40278,0 0.73116,-0.32838 0.73116,-0.73244 l 0,-0.73757 c 0,-0.68499 0.62854,-1.20321 1.3007,-1.06852 0.51053,0.10133 0.87995,0.54901 0.87995,1.06852 l 0,1.63292 c 0,0.40406 0.32839,0.73245 0.73245,0.73245 0.40406,0 0.73244,-0.32839 0.73244,-0.73245 l 0,-1.06467 c 0,-0.68113 0.62469,-1.19551 1.293,-1.06211 0.50797,0.10006 0.87483,0.54388 0.87483,1.06211 l 0,1.96644 c 0,0.40406 0.32838,0.73244 0.73244,0.73244 0.40406,0 0.73245,-0.32838 0.73245,-0.73244 l 0,-1.16986 c 0,-0.67087 0.69909,-1.11213 1.30582,-0.82865 0.82737,0.39124 1.49568,1.19551 1.49568,3.17734 0,1.73811 -0.59648,2.81305 -1.42,4.30231 z" />
+      </g>
+    </g>
+  </g>
+</svg>
