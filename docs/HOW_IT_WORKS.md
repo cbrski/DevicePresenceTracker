@@ -10,6 +10,8 @@ cat /tmp/dhcp.leases*
 iwinfo wlan0 assoclist
 ```
 
+[Dostępne stany urządzeń](https://www.man7.org/linux/man-pages/man8/ip-neighbour.8.html) to wartości "STATE" komendy "ip neigh".
+
 Główny skrypt zwracający dane w formacie JSON znajduje się w gałęzi "router" tego repozytorium pod ścieżką:
 ```bash
 /var/DevicePresenceTracker/main.sh
