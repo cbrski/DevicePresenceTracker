@@ -15,6 +15,22 @@ z dostępem do szczegółowych informacji _(3)_ po kliknięciu / tapnięciu w ka
 
 :point_right: [Statyczne demo dostępne tutaj](https://cbrski.github.io/DevicePresenceTracker) :point_left:
 
+##### Legenda:
+
+ - Urządzenie online:
+<p align="left"><img src="https://raw.githubusercontent.com/cbrski/DevicePresenceTracker/e6203bcba064cbd4cbdbabb635203f4650a66dea/docs/graphics/card_online.svg" width="300px"></p>
+
+ - Urządzenie prawdopodobnie online (dotyczy urządzeń połączonych bezprzewodowo):
+<p align="left"><img src="https://raw.githubusercontent.com/cbrski/DevicePresenceTracker/e6203bcba064cbd4cbdbabb635203f4650a66dea/docs/graphics/card_online_maybe.svg" width="300px"></p>
+
+- Urządzenie offline:
+<p align="left"><img src="https://raw.githubusercontent.com/cbrski/DevicePresenceTracker/e6203bcba064cbd4cbdbabb635203f4650a66dea/docs/graphics/card_offline.svg" width="300px"></p>
+
+- Dane urządzenia:
+<p align="left"><img src="https://raw.githubusercontent.com/cbrski/DevicePresenceTracker/e6203bcba064cbd4cbdbabb635203f4650a66dea/docs/graphics/card_details.svg" width="300px"></p>
+
+:point_right: [Statyczne demo dostępne tutaj](https://cbrski.github.io/DevicePresenceTracker) :point_left:
+
 Stack technologiczny:
 <br>PHP 7, Laravel 8, Bootstrap 4
 
