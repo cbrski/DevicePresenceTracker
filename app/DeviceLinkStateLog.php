@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeviceLinkStateLog extends Model
 {
+    use HasFactory;
+
     const STATE_PERMAMENT   = 'permament';
     const STATE_NOARP       = 'noarp';
     const STATE_REACHABLE   = 'reachable';
