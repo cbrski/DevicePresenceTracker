@@ -2,7 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\DeviceLinkStateLog;
+use Database\Factories\Helpers\OneEntryHelper;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class ApiTest extends TestCase
@@ -11,7 +14,7 @@ class ApiTest extends TestCase
 
     public function testGetNeighbours()
     {
-        //TODO before testing seed database with data
+        OneEntryHelper::create();
 
         $data = $this->json('GET', '/api/neighbours')
             ->assertStatus(200);
