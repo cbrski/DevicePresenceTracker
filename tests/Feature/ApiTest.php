@@ -14,7 +14,7 @@ class ApiTest extends TestCase
 
     public function testGetNeighbours()
     {
-        OneEntryHelper::create();
+        $entry = new OneEntryHelper();
 
         $data = $this->json('GET', '/api/neighbours')
             ->assertStatus(200);
