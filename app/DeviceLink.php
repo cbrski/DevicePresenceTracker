@@ -3,10 +3,13 @@
 namespace App;
 
 use App\Helpers\IpAddressInversion;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DeviceLink extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'device_id',
         'lladdr',

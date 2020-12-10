@@ -25,6 +25,9 @@
     <testsuite name="DeviceStateInput">
       <directory suffix="DeviceStateInputTest.php">./tests/Unit</directory>
     </testsuite>
+    <testsuite name="ApiTest">
+      <directory suffix="ApiTest.php">./tests/Feature</directory>
+    </testsuite>
 
   </testsuites>
   <php>
