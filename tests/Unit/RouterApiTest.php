@@ -11,7 +11,7 @@ use App\Api\RouterApi;
 
 class RouterApiTest extends TestCase
 {
-//    use RefreshDatabase;
+    use RefreshDatabase;
 
     public const FILENAME = 'test_api_timestamp_remove_this_file';
     private SettingsHelper $settingsHelper;
