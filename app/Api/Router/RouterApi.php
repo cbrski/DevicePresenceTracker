@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace App\Api;
+namespace App\Api\Router;
 
 use AdvancedJsonRpc\Request;
-use App\Api\Helpers\SettingsHelper;
-use App\Api\Helpers\TimestampFileHelper;
+use App\Api\Router\Helpers\SettingsHelper;
+use App\Api\Router\Helpers\TimestampFileHelper;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use JsonMapper;
-use App\Api\Mappers\TargetLogin;
+use App\Api\Router\Mappers\TargetLogin;
 
-class RouterApi
+class RouterInterfaceApi implements RouterInterface
 {
     protected array $config = [];
     protected array $configNeededKeys = [
