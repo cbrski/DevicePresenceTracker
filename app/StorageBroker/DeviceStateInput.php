@@ -4,8 +4,8 @@
 namespace App\StorageBroker;
 
 
-use App\Api\Structure\Neighbour;
-use App\Api\Structure\Neighbours;
+use App\Api\Router\Structure\Neighbour;
+use App\Api\Router\Structure\Neighbours;
 use App\Device;
 use App\DeviceLink;
 use App\DeviceLinkStateLog;

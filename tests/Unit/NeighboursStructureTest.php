@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Api\Structure\Neighbour;
-use App\Api\Structure\Neighbours;
+use App\Api\Router\Structure\Neighbour;
+use App\Api\Router\Structure\Neighbours;
 use App\DeviceLinkStateLog;
 use Tests\TestCase;
 

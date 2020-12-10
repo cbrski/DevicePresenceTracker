@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Api\Mappers;
+namespace App\Api\Router\Mappers;
 
 class TargetLogin
 {

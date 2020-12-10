@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Api\Helpers\SettingsHelper;
-use App\Api\Helpers\TimestampFileHelper;
+use App\Api\Router\Helpers\SettingsHelper;
+use App\Api\Router\Helpers\TimestampFileHelper;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Api\RouterApi;
+use App\Api\Router\RouterApi;
 
 class RouterApiTest extends TestCase
 {
@@ -30,7 +30,7 @@ class RouterApiTest extends TestCase
     public function testAuthorizeInvalidNotAllNeededConfig(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid configuration for App\Api\RouterApi, there is no: login');
+        $this->expectExceptionMessage('Invalid configuration for App\Api\Router\RouterApi, there is no: login');
         $api = new RouterApi(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
@@ -46,7 +46,7 @@ class RouterApiTest extends TestCase
     public function testAuthorizeInvalidNullValuesInConfig(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid configuration for App\Api\RouterApi, misconfigured: login');
+        $this->expectExceptionMessage('Invalid configuration for App\Api\Router\RouterApi, misconfigured: login');
 
         $api = new RouterApi(
             new Client(),

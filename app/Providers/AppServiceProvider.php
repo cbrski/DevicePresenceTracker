@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Api\Helpers\SettingsHelper;
-use App\Api\Helpers\TimestampFileHelper;
-use App\Api\RouterApi;
+use App\Api\Router\Helpers\SettingsHelper;
+use App\Api\Router\Helpers\TimestampFileHelper;
+use App\Api\Router\RouterApi;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 

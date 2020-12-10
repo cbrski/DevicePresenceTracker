@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 use JsonMapper;
 use App\Api\Router\Mappers\TargetLogin;
 
-class RouterInterfaceApi implements RouterInterface
+class RouterApi implements RouterInterface
 {
     protected array $config = [];
     protected array $configNeededKeys = [
@@ -150,7 +150,7 @@ class RouterInterfaceApi implements RouterInterface
             $mapper = new JsonMapper();
             $loginResponse = $mapper->map(json_decode($content), new TargetLogin());
         } catch (\JsonMapper_Exception $e) {
-            if ($e->getMessage() == 'JSON property "result" in class "App\Api\Mappers\TargetLogin" must not be NULL')
+            if ($e->getMessage() == 'JSON property "result" in class "App\Api\Router\Mappers\TargetLogin" must not be NULL')
             {
                 Log::critical(__CLASS__.':'.__METHOD__.': incorrect login data');
                 return false;
@@ -182,12 +182,12 @@ class RouterInterfaceApi implements RouterInterface
         return $this;
     }
 
-    public function getToken()
+    public function getToken(): string
     {
         return $this->settings->tokenString;
     }
 
-    public function getNeighbours()
+    public function getNeighbours(): \stdClass
     {
         $result = $this->client->request('GET',
             $this->config['host'] . $this->config['url_neighbours'] .'?auth='.$this->getToken());

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Api\Structure;
+namespace App\Api\Router\Structure;
 
 
 class Neighbour

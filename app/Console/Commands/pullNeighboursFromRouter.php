@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Api\RouterApi;
-use App\Api\Structure\Neighbours;
+use App\Api\Router\RouterApi;
+use App\Api\Router\Structure\Neighbours;
 use App\StorageBroker\DeviceStateInput;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;

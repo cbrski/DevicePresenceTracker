@@ -11,7 +11,7 @@ return [
     */
 
     'settings' => [
-        \App\Api\Helpers\SettingsHelper::class,
+        \App\Api\Router\Helpers\SettingsHelper::class,
     ],
 
     /*

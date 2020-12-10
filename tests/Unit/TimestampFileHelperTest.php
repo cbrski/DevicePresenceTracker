@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Api\Helpers\TimestampFileHelper;
+use App\Api\Router\Helpers\TimestampFileHelper;
 use Tests\TestCase;
 
 class TimestampFileHelperTest extends TestCase

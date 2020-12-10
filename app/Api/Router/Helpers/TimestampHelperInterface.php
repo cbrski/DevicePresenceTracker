@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Api\Helpers;
+namespace App\Api\Router\Helpers;
 
 interface TimestampHelperInterface
 {

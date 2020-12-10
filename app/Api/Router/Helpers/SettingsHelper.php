@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Api\Helpers;
+namespace App\Api\Router\Helpers;
 
 
 use Spatie\LaravelSettings\Settings;
