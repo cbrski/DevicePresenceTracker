@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('/tracker', [\App\Http\Controllers\Tracker::class, 'show']);
+Route::redirect('/', '/tracker');
