@@ -3,58 +3,22 @@
 namespace App\Api\Router;
 
 use AdvancedJsonRpc\Request;
+use App\Api\Router\Helpers\ConfigValidator;
 use App\Api\Router\Helpers\SettingsHelper;
 use App\Api\Router\Helpers\TimestampFileHelper;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use JsonMapper;
 use App\Api\Router\Mappers\TargetLogin;
 
-class RouterApi implements RouterInterface
+class RouterOpenWrt implements RouterInterface
 {
     protected array $config = [];
-    protected array $configNeededKeys = [
-        'login', 'password', 'host', 'url_auth', 'url_neighbours', 'session_timeout'
-    ];
+
     protected Client $client;
     protected TimestampFileHelper $timestampHelper;
     protected SettingsHelper $settings;
-
-    private function checkNeededKeysInConfig($_config)
-    {
-        foreach ($this->configNeededKeys as $val)
-        {
-            if (!array_key_exists($val, $_config))
-            {
-                throw new \InvalidArgumentException(
-                    'Invalid configuration for '.__CLASS__.', there is no: '.$val
-                );
-            }
-        }
-    }
-
-    private function checkValueOfOneConfig($input)
-    {
-        if (is_null($input) || !is_string($input))
-        {
-            return false;
-        }
-        return $input;
-    }
-
-    private function checkValuesOfConfig($_config)
-    {
-        foreach ($_config as $key => $val)
-        {
-            if (!$this->checkValueOfOneConfig($val))
-            {
-                throw new \InvalidArgumentException(
-                    'Invalid configuration for '.__CLASS__.', misconfigured: '.$key
-                );
-            }
-        }
-        return true;
-    }
 
     public function __construct(
         Client $_client,
@@ -63,8 +27,8 @@ class RouterApi implements RouterInterface
         array $_config
     )
     {
-        $this->checkNeededKeysInConfig($_config);
-        $this->checkValuesOfConfig($_config);
+        $validator = App::make(ConfigValidator::class);
+        $validator->check($_config);
 
         $this->config['login'] =           $_config['login'];
         $this->config['password'] =        $_config['password'];

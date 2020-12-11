@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Api\Router\RouterApi;
+use App\Api\Router\RouterOpenWrt;
 use App\Api\Router\Structure\Neighbours;
 use App\StorageBroker\DeviceStateInput;
 use Illuminate\Console\Command;
@@ -42,7 +42,7 @@ class pullNeighboursFromRouter extends Command
     public function handle()
     {
         $app = App::getFacadeApplication();
-        $routerApi = $app->make(RouterApi::class);
+        $routerApi = $app->make(RouterOpenWrt::class);
         if ($routerApi->authorize())
         {
             $rawData = $routerApi->getNeighbours();

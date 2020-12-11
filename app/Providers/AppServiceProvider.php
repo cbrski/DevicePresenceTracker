@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
+use App\Api\Router\Helpers\ConfigValidator;
 use App\Api\Router\Helpers\SettingsHelper;
 use App\Api\Router\Helpers\TimestampFileHelper;
-use App\Api\Router\RouterApi;
+use App\Api\Router\RouterOpenWrt;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,10 +22,10 @@ class AppServiceProvider extends ServiceProvider
             return new TimestampFileHelper(env('OPENWRT_API_FILE_TIMESTAMP_HELPER'));
         });
 
-        $this->app->bind(RouterApi::class, function($app) {
+        $this->app->bind(RouterOpenWrt::class, function($app) {
             $key = 'OPENWRT_API_';
 
-            return new RouterApi(
+            return new RouterOpenWrt(
                 $this->app->make(Client::class),
                 $this->app->make(TimestampFileHelper::class),
                 $this->app->make(SettingsHelper::class),

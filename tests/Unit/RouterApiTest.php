@@ -7,7 +7,7 @@ use App\Api\Router\Helpers\TimestampFileHelper;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Api\Router\RouterApi;
+use App\Api\Router\RouterOpenWrt;
 
 class RouterApiTest extends TestCase
 {
@@ -30,8 +30,8 @@ class RouterApiTest extends TestCase
     public function testAuthorizeInvalidNotAllNeededConfig(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid configuration for App\Api\Router\RouterApi, there is no: login');
-        $api = new RouterApi(
+        $this->expectExceptionMessage('Invalid configuration, there is no: login');
+        $api = new RouterOpenWrt(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
             $this->settingsHelper,
@@ -46,9 +46,9 @@ class RouterApiTest extends TestCase
     public function testAuthorizeInvalidNullValuesInConfig(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid configuration for App\Api\Router\RouterApi, misconfigured: login');
+        $this->expectExceptionMessage('Invalid configuration, misconfigured: login');
 
-        $api = new RouterApi(
+        $api = new RouterOpenWrt(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
             $this->settingsHelper,
@@ -66,7 +66,7 @@ class RouterApiTest extends TestCase
 
     public function testAuthorizeInvalidOrOfflineHostAddress()
     {
-        $api = new RouterApi(
+        $api = new RouterOpenWrt(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
             $this->settingsHelper,
@@ -85,7 +85,7 @@ class RouterApiTest extends TestCase
 
     public function testAuthorizeInvalidCredentials()
     {
-        $api = new RouterApi(
+        $api = new RouterOpenWrt(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
             $this->settingsHelper,
@@ -101,9 +101,9 @@ class RouterApiTest extends TestCase
         $this->assertFalse($api->authorize());
     }
 
-    public function testAuthorize(): RouterApi
+    public function testAuthorize(): RouterOpenWrt
     {
-        $api = new RouterApi(
+        $api = new RouterOpenWrt(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
             $this->settingsHelper,
@@ -122,9 +122,9 @@ class RouterApiTest extends TestCase
         return $api;
     }
 
-    public function testAuthorizeSameToken(): RouterApi
+    public function testAuthorizeSameToken(): RouterOpenWrt
     {
-        $api = new RouterApi(
+        $api = new RouterOpenWrt(
             new Client(),
             new TimestampFileHelper(self::FILENAME),
             $this->settingsHelper,
@@ -149,10 +149,10 @@ class RouterApiTest extends TestCase
     }
 
     /**
-     * @param RouterApi $api
+     * @param RouterOpenWrt $api
      * @depends testAuthorize
      */
-    public function testGetNeighboursOneAuthorize(RouterApi $api): \stdClass
+    public function testGetNeighboursOneAuthorize(RouterOpenWrt $api): \stdClass
     {
         $neighbours = $api->getNeighbours();
 
@@ -164,10 +164,10 @@ class RouterApiTest extends TestCase
     }
 
     /**
-     * @param RouterApi $api
+     * @param RouterOpenWrt $api
      * @depends testAuthorizeSameToken
      */
-    public function testGetNeighboursManyAuthorize(RouterApi $api): \stdClass
+    public function testGetNeighboursManyAuthorize(RouterOpenWrt $api): \stdClass
     {
         $neighbours = $api->getNeighbours();
 
