@@ -10,7 +10,7 @@ class ConfigValidator implements ConfigValidatorInterface
         'login', 'password', 'host', 'url_auth', 'url_neighbours', 'session_timeout'
     ];
 
-    private function checkValueOfOneConfig($input)
+    private function validateValueOfOneConfig($input)
     {
         if (is_null($input) || !is_string($input))
         {
@@ -19,7 +19,7 @@ class ConfigValidator implements ConfigValidatorInterface
         return $input;
     }
 
-    private function checkNeededKeysInConfig($_config)
+    private function validateNeededKeysInConfig($_config)
     {
         foreach ($this->configNeededKeys as $val)
         {
@@ -32,11 +32,11 @@ class ConfigValidator implements ConfigValidatorInterface
         }
     }
 
-    private function checkValuesOfConfig($_config)
+    private function validateValuesOfConfig($_config)
     {
         foreach ($_config as $key => $val)
         {
-            if (!$this->checkValueOfOneConfig($val))
+            if (!$this->validateValueOfOneConfig($val))
             {
                 throw new \InvalidArgumentException(
                     'Invalid configuration, misconfigured: '.$key
@@ -46,9 +46,9 @@ class ConfigValidator implements ConfigValidatorInterface
         return true;
     }
 
-    public function check(array $_config)
+    public function validate(array $_config)
     {
-        $this->checkNeededKeysInConfig($_config);
-        $this->checkValuesOfConfig($_config);
+        $this->validateNeededKeysInConfig($_config);
+        $this->validateValuesOfConfig($_config);
     }
 }

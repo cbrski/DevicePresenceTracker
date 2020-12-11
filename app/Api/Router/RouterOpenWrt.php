@@ -28,7 +28,7 @@ class RouterOpenWrt implements RouterInterface
     )
     {
         $validator = App::make(ConfigValidator::class);
-        $validator->check($_config);
+        $validator->validate($_config);
 
         $this->config['login'] =           $_config['login'];
         $this->config['password'] =        $_config['password'];
