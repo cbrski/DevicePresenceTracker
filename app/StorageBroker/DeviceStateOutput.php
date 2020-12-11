@@ -18,7 +18,10 @@ class DeviceStateOutput
 
     private function getLastStateByDevice(Device $device): DeviceLinkStateLog
     {
-        return DeviceLinkStateLog::where([['device_id', '=', $device->id]])->orderBy('timestamp', 'desc')->limit(1)->firstOrFail();
+        return DeviceLinkStateLog::where([['device_id', '=', $device->id]])
+            ->orderBy('timestamp', 'desc')
+            ->limit(1)
+            ->firstOrFail();
     }
 
     private function fillDataWithDevice(Device $device): array
