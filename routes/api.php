@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\StorageBroker\DeviceStateOutput;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,6 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::get('neighbours', function() {
-    $data = (new \App\StorageBroker\DeviceStateOutput())->get();
+    $data = (App::getFacadeRoot()->make(DeviceStateOutput::class))->get();
     return response()->json($data, 200);
 });

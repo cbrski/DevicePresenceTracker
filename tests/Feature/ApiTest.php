@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\DeviceLinkStateLog;
 use Database\Factories\Helpers\OneEntryHelper;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class ApiTest extends TestCase
@@ -14,11 +12,10 @@ class ApiTest extends TestCase
 
     public function testGetNeighbours()
     {
-        $entry = new OneEntryHelper();
+        new OneEntryHelper();
 
         $data = $this->json('GET', '/api/neighbours')
             ->assertStatus(200);
-        $ala = null;
         $data->assertSee('deviceName');
         $data->assertSee('lastUsedLink');
         $data->assertSee('timestamp');
