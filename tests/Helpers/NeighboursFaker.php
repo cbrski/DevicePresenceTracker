@@ -8,12 +8,15 @@ use App\DeviceLinkStateLog;
 use Faker\Generator;
 use Illuminate\Support\Facades\App;
 
-class NeighboursFaker
+class NeighboursFaker implements \ArrayAccess
 {
     private int $timestamp;
     private int $count = 1;
     /** @var Generator */
     private $faker;
+
+    private array $neighbours;
+    private array $rawData;
 
     public function __construct()
     {
@@ -33,14 +36,10 @@ class NeighboursFaker
         return $s[rand(0,1)].rand(0,9);
     }
 
-    private function createOneNeighbour(): \stdClass
+    /** @var string[] $avoid */
+    public static function getRandomState(array $avoid = []): string
     {
-        $neighbour = new \stdClass();
-        $neighbour->ip = $this->faker->unique()->localIpv4();
-        $neighbour->dev = $this->randomDev();
-        $neighbour->lladdr = strtolower($this->faker->unique()->macAddress());
-        $neighbour->hostname = $this->faker->unique()->colorName();
-        $neighbour->state = $this->faker->randomElement([
+        $allStates = [
             DeviceLinkStateLog::STATE_PERMAMENT,
             DeviceLinkStateLog::STATE_NOARP,
             DeviceLinkStateLog::STATE_REACHABLE,
@@ -50,25 +49,68 @@ class NeighboursFaker
             DeviceLinkStateLog::STATE_DELAY,
             DeviceLinkStateLog::STATE_PROBE,
             DeviceLinkStateLog::STATE_FAILED,
-        ]);
+        ];
+        do {
+            $candidateKey = array_rand($allStates);
+        } while (in_array($avoid, $allStates));
+
+        return $allStates[$candidateKey];
+    }
+
+    private function createOneNeighbour(): \stdClass
+    {
+        $neighbour = new \stdClass();
+        $neighbour->ip = $this->faker->unique()->localIpv4();
+        $neighbour->dev = $this->randomDev();
+        $neighbour->lladdr = strtolower($this->faker->unique()->macAddress());
+        $neighbour->hostname = $this->faker->unique()->colorName();
+        $neighbour->state = self::getRandomState();
         return $neighbour;
     }
 
     private function createNeighbours(): array
     {
-        $neighbours = [];
         for ($i=0 ; $i<$this->count ; ++$i) {
-            $neighbours[] = $this->createOneNeighbour();
+            $this->neighbours[] = $this->createOneNeighbour();
         }
-        return $neighbours;
+        return $this->neighbours;
     }
 
-    public function create(): \stdClass
+    public function create(): self
     {
-        $rawData = [
+        $this->rawData = [
             'timestamp' => $this->timestamp,
             'neighbours' => $this->createNeighbours(),
         ];
-        return (object) $rawData;
+        return $this;
+    }
+
+    public function toObject(): \stdClass
+    {
+        return (object) $this->rawData;
+    }
+
+    public function offsetExists($offset): bool
+    {
+        return isset($this->neighbours[$offset]);
+    }
+
+    public function offsetGet($offset): ?\stdClass
+    {
+        return $this->neighbours[$offset] ?? null;
+    }
+
+    public function offsetSet($offset, $value): void
+    {
+        if (is_null($offset)) {
+            $this->neighbours[] = $value;
+        } else {
+            $this->neighbours[$offset] = $value;
+        }
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->neighbours[$offset]);
     }
 }
