@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace App\Api\Router\Structure;
@@ -6,10 +6,12 @@ namespace App\Api\Router\Structure;
 
 class Neighbours implements \Iterator, \Countable
 {
-    private int $timestamp;
+    protected int $timestamp;
 
-    private array $neighbours = [];
-    private int $position = 0;
+    protected array $neighbours = [];
+    protected int $position = 0;
+
+    protected \stdClass $rawData;
 
     private function populate(\stdClass $rawData): void
     {
@@ -21,8 +23,14 @@ class Neighbours implements \Iterator, \Countable
         }
     }
 
-    public function __construct($rawData)
+    public function getRawData(): \stdClass
     {
+        return $this->rawData;
+    }
+
+    public function __construct(\stdClass $rawData)
+    {
+        $this->rawData = $rawData;
         $this->populate($rawData);
         $this->position = 0;
     }
@@ -34,7 +42,21 @@ class Neighbours implements \Iterator, \Countable
 
     public function next(): void
     {
-        ++$this->position;
+        $lastKey = array_key_last($this->neighbours);
+
+        if (is_null($lastKey) || $this->position == $lastKey) {
+            ++$this->position;
+            return;
+        }
+
+        if ($this->position < $lastKey) {
+            $found = false;
+            while (!$found) {
+                if (array_key_exists(++$this->position, $this->neighbours)) {
+                    $found = true;
+                }
+            }
+        }
     }
 
     public function key(): int
@@ -49,7 +71,7 @@ class Neighbours implements \Iterator, \Countable
 
     public function rewind(): void
     {
-        $this->position = 0;
+        $this->position = (int) array_key_first($this->neighbours);
     }
 
     public function count(): int

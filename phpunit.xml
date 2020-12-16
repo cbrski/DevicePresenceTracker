@@ -22,11 +22,15 @@
     <testsuite name="DeviceMapperDotEnvHelper">
       <directory suffix="DeviceMapperDotEnvHelperTest.php">./tests/Unit</directory>
     </testsuite>
-    <testsuite name="DeviceStateInput">
-      <directory suffix="DeviceStateInputTest.php">./tests/Unit</directory>
-    </testsuite>
     <testsuite name="ApiTest">
       <directory suffix="ApiTest.php">./tests/Feature</directory>
+    </testsuite>
+    <testsuite name="VisibleDeviceSynchronizator">
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/MatchMakerTest.php</file>
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/MatchedUpdaterTest.php</file>
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/NotMatchedUpdaterTest.php</file>
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/CreatorTest.php</file>
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizatorTest.php</file>
     </testsuite>
 
   </testsuites>
