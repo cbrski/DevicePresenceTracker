@@ -79,7 +79,7 @@ class BaseTest extends TestCase
         $rawDatabaseReader = $this->app->make(RawDatabaseReader::class);
         /** @var Collection $keepers */
         $keepers = $this->app->make(KeepersInstantiatorFromDatabase::class)->getAll($rawDatabaseReader);
-        $neighboursLeft = new NeighboursRepository($nf->toObject());
+        $neighboursLeft = $this->app->make(NeighboursRepository::class, ['rawData' => $nf->shuffle()->toObject()]);
 
         return [$keepers, $neighboursLeft];
     }

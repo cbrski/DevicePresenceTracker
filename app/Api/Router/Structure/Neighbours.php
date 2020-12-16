@@ -42,7 +42,21 @@ class Neighbours implements \Iterator, \Countable
 
     public function next(): void
     {
-        ++$this->position;
+        $lastKey = array_key_last($this->neighbours);
+
+        if (is_null($lastKey) || $this->position == $lastKey) {
+            ++$this->position;
+            return;
+        }
+
+        if ($this->position < $lastKey) {
+            $found = false;
+            while (!$found) {
+                if (array_key_exists(++$this->position, $this->neighbours)) {
+                    $found = true;
+                }
+            }
+        }
     }
 
     public function key(): int
@@ -57,7 +71,7 @@ class Neighbours implements \Iterator, \Countable
 
     public function rewind(): void
     {
-        $this->position = 0;
+        $this->position = (int) array_key_first($this->neighbours);
     }
 
     public function count(): int

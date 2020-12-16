@@ -30,7 +30,6 @@ class NeighboursRepository extends Neighbours implements \ArrayAccess
 
     public function offsetUnset($offset)
     {
-        //TODO czy tu jest bug, gdzieś usuwam element z tablicy a potem gdzieś do tego usuniętego elementu program chce się dostać
         unset($this->neighbours[$offset]);
     }
 }
