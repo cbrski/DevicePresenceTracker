@@ -21,6 +21,7 @@ class Creator
 
     private function createDevice(Neighbour $neighbour): Device
     {
+        /** @var Helper $helper */
         $helper = $this->app->make(Helper::class);
         $name = $helper::getNewNameForDevice($neighbour->lladdr, $neighbour->hostname);
         $d = $this->app->make(Device::class);
@@ -92,7 +93,12 @@ class Creator
          * @var Neighbour $neighbour
          */
         foreach ($neighboursLeft as $keyNeighbour => $neighbour) {
-            $keepers->push($this->createNewVisibleDeviceKeeper($neighbour));
+            if (
+                !is_null($neighbour->lladdr)
+                && 0 != strcasecmp($neighbour->state, DeviceLinkStateLog::STATE_FAILED)
+            ) {
+                $keepers->push($this->createNewVisibleDeviceKeeper($neighbour));
+            }
             unset($neighboursLeft[$keyNeighbour]);
         }
         return [$keepers, $neighboursLeft];
