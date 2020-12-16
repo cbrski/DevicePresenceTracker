@@ -19,7 +19,7 @@ class Helper
         return $deviceMapper->getHostnameByLladdr($lladdr);
     }
 
-    public static function getNewNameForDevice(string $lladdr, string $hostname = null): string
+    public static function getNewNameForDevice(string $lladdr, ?string $hostname = null): string
     {
         $definedName = self::getHostnameByLladdr($lladdr);
         $definedName = $definedName ?? $hostname;
@@ -31,24 +31,9 @@ class Helper
 
     public static function getUpdatedNameForDevice(string $lladdr, string $currentName): string
     {
-        if (self::isRandomName($currentName)
-            && !is_null($newName = self::getHostnameByLladdr($lladdr))) {
+        if ($newName = self::getHostnameByLladdr($lladdr)) {
             return $newName;
         }
         return $currentName;
-    }
-
-    public static function isRandomName(string $name): bool
-    {
-        if (strlen($name) == self::UNDEFINED_DEVICE_NAME_LENGTH
-            &&
-            substr(
-                $name,
-                0,
-                strlen(self::UNDEFINED_DEVICE_NAME_PREFIX)
-            ) == self::UNDEFINED_DEVICE_NAME_PREFIX) {
-            return true;
-        }
-        return false;
     }
 }

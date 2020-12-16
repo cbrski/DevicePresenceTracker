@@ -9,7 +9,6 @@ use App\Api\Router\Structure\Neighbour;
 use App\Device;
 use App\DeviceLink;
 use App\DeviceLinkStateLog;
-use App\StorageBroker\Helpers\DeviceMapperDotEnvHelper;
 use App\StorageBroker\Helpers\VisibleDevicesSynchronizator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -34,7 +33,7 @@ class MatchedUpdater
 
                 /** @var Helper $helper */
                 $helper = App::getFacadeRoot()->make(Helper::class);
-                $d->name = $helper::getNewNameForDevice($dl->lladdr, $dl->hostname);
+                $d->name = $helper::getUpdatedNameForDevice($dl->lladdr, $d->name);
 
                 $dl->ipv4 = $n->ip;
                 $dl->dev = $n->dev;
