@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Tests\Unit\StorageBroker\Helpers\VisibleDeviceSynchronizator;
@@ -23,7 +23,8 @@ class BaseTest extends TestCase
         $this->artisan('migrate:fresh');
 
         /** @var NeighboursFaker $rawData */
-        $nf = $this->app->make(NeighboursFaker::class)->count(12)->create();
+        $nf = $this->app->make(NeighboursFaker::class)
+            ->withoutStates([DeviceLinkStateLog::STATE_FAILED])->count(12)->create();
 
         //store in DB 4 four same visible devices as neighbours
         for ($i=0 ; $i<4 ; ++$i) {

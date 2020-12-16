@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\App;
 class NeighboursFaker implements \ArrayAccess
 {
     private int $timestamp;
-    private int $count = 1;
+    private int $count;
     /** @var Generator */
     private $faker;
+    private array $withoutStates = [];
 
     private array $neighbours;
     private array $rawData;
@@ -64,7 +65,7 @@ class NeighboursFaker implements \ArrayAccess
         $neighbour->dev = $this->randomDev();
         $neighbour->lladdr = strtolower($this->faker->unique()->macAddress());
         $neighbour->hostname = $this->faker->unique()->colorName();
-        $neighbour->state = self::getRandomState();
+        $neighbour->state = self::getRandomState($this->withoutStates);
         return $neighbour;
     }
 
@@ -74,6 +75,12 @@ class NeighboursFaker implements \ArrayAccess
             $this->neighbours[] = $this->createOneNeighbour();
         }
         return $this->neighbours;
+    }
+
+    public function withoutStates(array $args): self
+    {
+        $this->withoutStates = $args;
+        return $this;
     }
 
     public function create(): self
