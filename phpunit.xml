@@ -28,6 +28,11 @@
     <testsuite name="ApiTest">
       <directory suffix="ApiTest.php">./tests/Feature</directory>
     </testsuite>
+    <testsuite name="VisibleDeviceSynchronizator">
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/MatchMakerTest.php</file>
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/MatchedUpdaterTest.php</file>
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/NotMatchedUpdaterTest.php</file>
+    </testsuite>
 
   </testsuites>
   <php>
