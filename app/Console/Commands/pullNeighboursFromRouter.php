@@ -1,6 +1,8 @@
-<?php
+<?php declare(strict_types=1);
+
 
 namespace App\Console\Commands;
+
 
 use App\Api\Router\RouterOpenWrt;
 use App\Api\Router\Structure\Neighbours;
@@ -46,10 +48,12 @@ class pullNeighboursFromRouter extends Command
         if ($routerApi->authorize())
         {
             $rawData = $routerApi->getNeighbours();
-            $deviceStateInput = $app->make(DeviceStateInput::class);
             $neighbours = $app->make(Neighbours::class, ['rawData' => $rawData]);
 
-            if ($deviceStateInput->update($neighbours))
+            /** @var DeviceStateInput $deviceStateInput */
+            $deviceStateInput = $app->make(DeviceStateInput::class, ['neighbours' => $neighbours]);
+
+            if ($deviceStateInput->update())
             {
                 return 0;
             }
