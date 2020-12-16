@@ -9,14 +9,11 @@ use App\DeviceLinkStateLog;
 use App\StorageBroker\Helpers\VisibleDevicesSynchronizator;
 use App\StorageBroker\Helpers\VisibleDeviceSynchronizator\NotMatchedUpdater;
 use App\StorageBroker\Helpers\VisibleDeviceSynchronizator\VisibleDeviceKeeper;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
 use Tests\Helpers\RegisterDependsCrossClass;
 
 class NotMatchedUpdaterTest extends BaseTest
 {
-    use RefreshDatabase;
-
     public function testUpdate(): Collection
     {
         $keepers = RegisterDependsCrossClass::get('keepers');
