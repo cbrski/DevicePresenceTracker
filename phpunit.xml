@@ -22,9 +22,6 @@
     <testsuite name="DeviceMapperDotEnvHelper">
       <directory suffix="DeviceMapperDotEnvHelperTest.php">./tests/Unit</directory>
     </testsuite>
-    <testsuite name="DeviceStateInput">
-      <directory suffix="DeviceStateInputTest.php">./tests/Unit</directory>
-    </testsuite>
     <testsuite name="ApiTest">
       <directory suffix="ApiTest.php">./tests/Feature</directory>
     </testsuite>
