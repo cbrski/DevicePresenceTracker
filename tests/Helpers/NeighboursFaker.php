@@ -85,6 +85,12 @@ class NeighboursFaker implements \ArrayAccess
         return $this;
     }
 
+    public function shuffle(): self
+    {
+        shuffle($this->rawData['neighbours']);
+        return $this;
+    }
+
     public function toObject(): \stdClass
     {
         return (object) $this->rawData;
