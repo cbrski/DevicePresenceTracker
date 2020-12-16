@@ -30,19 +30,7 @@ class MatchMakerTest extends BaseTest
     }
 
     /** @depends testMatch */
-    public function testVisibleDeviceKeeperHasMatchedState(array $args)
-    {
-        $keepersMatched = $args[0]->filter(function($value, $key) {
-            if ($value->getState() == VisibleDevicesSynchronizator::INTERNAL_STATE_MATCHED) {
-                return true;
-            }
-            return false;
-        });
-        $this->assertCount(8, $keepersMatched);
-    }
-
-    /** @depends testMatch */
-    public function testVisibleDeviceKeeperWithMatchedStateTestNeighbour(array $args)
+    public function testCollectionOfVisibleDeviceKeepersCorrectlyMatched(array $args)
     {
         /** @var VisibleDeviceKeeper $value */
         $keepersMatched = $args[0]->filter(function($value, $key) {
@@ -63,7 +51,19 @@ class MatchMakerTest extends BaseTest
     }
 
     /** @depends testMatch */
-    public function testVisibleDeviceKeeperWithUntouchedStateCount(array $args)
+    public function testCountCollectionOfVisualDeviceKeepersWithInternalStateMatched(array $args)
+    {
+        $keepersMatched = $args[0]->filter(function($value, $key) {
+            if ($value->getState() == VisibleDevicesSynchronizator::INTERNAL_STATE_MATCHED) {
+                return true;
+            }
+            return false;
+        });
+        $this->assertCount(8, $keepersMatched);
+    }
+
+    /** @depends testMatch */
+    public function testCountCollectionOfVisualDeviceKeepersWithInternalStateUntouched(array $args)
     {
         /** @var VisibleDeviceKeeper $value */
         $keepersUntouched = $args[0]->filter(function($value, $key) {
