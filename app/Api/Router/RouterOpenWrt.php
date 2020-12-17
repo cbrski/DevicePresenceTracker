@@ -1,17 +1,16 @@
 <?php declare(strict_types=1);
 
+
 namespace App\Api\Router;
 
-use AdvancedJsonRpc\Request;
+
+
 use App\Api\Router\Helpers\Authorization;
 use App\Api\Router\Helpers\ConfigValidator;
 use App\Api\Router\Helpers\SettingsHelper;
 use App\Api\Router\Helpers\TimestampFileHelper;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
-use JsonMapper;
-use App\Api\Router\Mappers\TargetLogin;
 
 class RouterOpenWrt implements RouterInterface
 {

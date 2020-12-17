@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace App\Api\Router\Structure;
@@ -13,26 +13,26 @@ class Neighbour
     private $hostname;
 
     public function __construct(\stdClass $rawNeighbour)
-{
-    foreach(['ip', 'dev', 'lladdr', 'state', 'hostname'] as $val)
     {
-        if (isset($rawNeighbour->{$val}))
+        foreach(['ip', 'dev', 'lladdr', 'state', 'hostname'] as $val)
         {
-            $this->{$val} = $rawNeighbour->{$val};
-        }
-        else
-        {
-            $this->{$val} = null;
+            if (isset($rawNeighbour->{$val}))
+            {
+                $this->{$val} = $rawNeighbour->{$val};
+            }
+            else
+            {
+                $this->{$val} = null;
+            }
         }
     }
-}
 
-    public function __get($name)
-{
-    if (property_exists($this, $name))
+        public function __get($name)
     {
-        return $this->{$name};
+        if (property_exists($this, $name))
+        {
+            return $this->{$name};
+        }
+        return false;
     }
-    return false;
-}
 }

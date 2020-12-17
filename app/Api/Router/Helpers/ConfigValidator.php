@@ -4,6 +4,7 @@
 namespace App\Api\Router\Helpers;
 
 
+
 class ConfigValidator implements ConfigValidatorInterface
 {
     protected array $configNeededKeys = [

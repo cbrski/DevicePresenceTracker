@@ -4,6 +4,7 @@
 namespace App\Api\Router\Structure;
 
 
+
 class Neighbours implements \Iterator, \Countable
 {
     protected int $timestamp;

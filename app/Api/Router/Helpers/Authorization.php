@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace App\Api\Router\Helpers;
+
 
 
 use AdvancedJsonRpc\Request;
@@ -104,6 +105,18 @@ class Authorization implements AuthorizationInterface
         return $loginResponse;
     }
 
+    public function __construct(
+        Client $_client,
+        TimestampFileHelper $_timestampHelper,
+        SettingsHelper $_settings,
+        array $_config)
+    {
+        $this->client = $_client;
+        $this->timestampHelper = $_timestampHelper;
+        $this->settings = $_settings;
+        $this->config = $_config;
+    }
+
     public function authorize(): bool
     {
         if ($this->isOngoingSession())
@@ -123,17 +136,5 @@ class Authorization implements AuthorizationInterface
 
         $this->keepToken($loginResponse->result);
         return true;
-    }
-
-    public function __construct(
-        Client $_client,
-        TimestampFileHelper $_timestampHelper,
-        SettingsHelper $_settings,
-        array $_config)
-    {
-        $this->client = $_client;
-        $this->timestampHelper = $_timestampHelper;
-        $this->settings = $_settings;
-        $this->config = $_config;
     }
 }
