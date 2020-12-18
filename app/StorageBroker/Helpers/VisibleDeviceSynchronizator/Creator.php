@@ -98,8 +98,8 @@ class Creator
                 && 0 != strcasecmp($neighbour->state, DeviceLinkStateLog::STATE_FAILED)
             ) {
                 $keepers->push($this->createNewVisibleDeviceKeeper($neighbour));
+                unset($neighboursLeft[$keyNeighbour]);
             }
-            unset($neighboursLeft[$keyNeighbour]);
         }
         return [$keepers, $neighboursLeft];
     }
