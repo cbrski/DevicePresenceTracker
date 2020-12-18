@@ -4,6 +4,9 @@
 namespace App\Api\Router\Structure;
 
 
+use Illuminate\Support\Facades\App;
+use Symfony\Component\String\UnicodeString;
+
 class Neighbour
 {
     private $ip;
@@ -26,6 +29,11 @@ class Neighbour
     public function __get($name)
     {
         if (property_exists($this, $name)) {
+            if ($name == 'lladdr' && !is_null($this->lladdr)) {
+                /** @var UnicodeString $unicodeString */
+                $unicodeString = App::getFacadeRoot()->make(UnicodeString::class, ['string' => $this->lladdr]);
+                return $unicodeString->upper()->toString();
+            }
             return $this->{$name};
         }
         return false;
