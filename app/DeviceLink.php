@@ -5,6 +5,8 @@ namespace App;
 use App\Helpers\IpAddressInversion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
+use Symfony\Component\String\UnicodeString;
 
 class DeviceLink extends Model
 {
@@ -37,8 +39,7 @@ class DeviceLink extends Model
 
     public function getIpv4Attribute()
     {
-        if (!is_null($this->attributes['ipv4']))
-        {
+        if (!is_null($this->attributes['ipv4'])) {
             return IpAddressInversion::long2ip($this->attributes['ipv4']);
         }
         return null;
@@ -46,9 +47,17 @@ class DeviceLink extends Model
 
     public function setIpv4Attribute(string $_ipv4)
     {
-        if (!is_null($_ipv4))
-        {
+        if (!is_null($_ipv4)) {
             $this->attributes['ipv4'] = IpAddressInversion::ip2long($_ipv4);
+        }
+    }
+
+    public function setLladdrAttribute(string $_lladdr)
+    {
+        if (!is_null($_lladdr)) {
+            /** @var UnicodeString $unicodeString */
+            $unicodeString = App::getFacadeRoot()->make(UnicodeString::class, ['string' => $_lladdr]);
+            $this->attributes['lladdr'] = $unicodeString->upper();
         }
     }
 }
