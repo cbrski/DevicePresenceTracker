@@ -74,9 +74,17 @@
                 background: rgb(40,167,69);
                 background: linear-gradient(90deg, rgba(40,167,69,1) 60%, rgba(255,193,7,1) 90%);
             }
+
+            .no-devices {
+                margin: 20px;
+                padding: 20px;
+                font-weight: bold;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
+        @if (!empty($devices))
         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 row-own">
 
             @foreach($devices as $key => $device)
@@ -143,5 +151,10 @@
             </div>
             @endforeach
         </div>
+        @else
+            <div class="alert alert-primary no-devices" role="alert">
+                There is no devices.
+            </div>
+        @endif
     </body>
 </html>
