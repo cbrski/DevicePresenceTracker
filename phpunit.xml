@@ -31,6 +31,7 @@
         <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/NotMatchedUpdaterTest.php</file>
         <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/CreatorTest.php</file>
         <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizatorTest.php</file>
+        <file>./tests/Unit/StorageBroker/Helpers/VisibleDeviceSynchronizator/MatchMakerStandaloneTest.php</file>
     </testsuite>
 
   </testsuites>
