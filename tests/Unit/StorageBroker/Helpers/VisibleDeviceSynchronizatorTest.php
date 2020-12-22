@@ -31,23 +31,29 @@ class VisibleDeviceSynchronizatorTest extends BaseTest
         $this->assertInstanceOf(NeighboursRepository::class, $neighbours);
         /** @var IpAddressInversion $ipAddressInversion */
         $ipAddressInversion = $this->app->make(IpAddressInversion::class);
+
         foreach ($neighbours as $n) {
-            $this->assertDatabaseHas($this->app->make(DeviceLink::class)->getTable(), [
-                'ipv4' => $ipAddressInversion::ip2long($n->ip),
-                'dev' => $n->dev,
-                'hostname' => $n->hostname,
-                'lladdr' => $n->lladdr,
-            ]);
+            if (
+                !is_null($n->lladdr)
+                && 0 != strcasecmp($n->state, DeviceLinkStateLog::STATE_FAILED)
+            ) {
+                $this->assertDatabaseHas($this->app->make(DeviceLink::class)->getTable(), [
+                    'ipv4' => $ipAddressInversion::ip2long($n->ip),
+                    'dev' => $n->dev,
+                    'hostname' => $n->hostname,
+                    'lladdr' => $n->lladdr,
+                ]);
 
-            /** @var DeviceLink $deviceLink */
-            $deviceLink = $this->app->make(DeviceLink::class);
-            $dl = $deviceLink::where('lladdr', $n->lladdr)->firstOrFail();
+                /** @var DeviceLink $deviceLink */
+                $deviceLink = $this->app->make(DeviceLink::class);
+                $dl = $deviceLink::where('lladdr', $n->lladdr)->firstOrFail();
 
-            $lastState = $dl->device_link_state_logs->toQuery()->orderBy('id', 'desc')->firstOrFail()->state;
-            $this->assertDatabaseHas($this->app->make(DeviceLinkStateLog::class)->getTable(), [
-                'device_link_id' => $dl->id,
-                'state' => $lastState,
-            ]);
+                $lastState = $dl->device_link_state_logs->toQuery()->orderBy('id', 'desc')->firstOrFail()->state;
+                $this->assertDatabaseHas($this->app->make(DeviceLinkStateLog::class)->getTable(), [
+                    'device_link_id' => $dl->id,
+                    'state' => $lastState,
+                ]);
+            }
         }
     }
 }

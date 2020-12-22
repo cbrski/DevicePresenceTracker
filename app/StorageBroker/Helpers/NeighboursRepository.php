@@ -6,8 +6,9 @@ namespace App\StorageBroker\Helpers;
 
 use App\Api\Router\Structure\Neighbour;
 use App\Api\Router\Structure\Neighbours;
+use Illuminate\Contracts\Support\Arrayable;
 
-class NeighboursRepository extends Neighbours implements \ArrayAccess
+class NeighboursRepository extends Neighbours implements \ArrayAccess, Arrayable
 {
     public function offsetExists($offset): bool
     {
@@ -31,5 +32,10 @@ class NeighboursRepository extends Neighbours implements \ArrayAccess
     public function offsetUnset($offset)
     {
         unset($this->neighbours[$offset]);
+    }
+
+    public function toArray()
+    {
+        return $this->neighbours;
     }
 }

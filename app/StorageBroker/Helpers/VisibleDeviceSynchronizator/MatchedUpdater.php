@@ -39,7 +39,7 @@ class MatchedUpdater
                 $dl->dev = $n->dev;
                 $dl->hostname = $n->hostname;
 
-                if ($dlsl->state != $n->state) {
+                if (0 != strcasecmp($dlsl->state, $n->state)) {
                     $dlsl = DeviceLinkStateLog::make([
                         'device_id' => $d->id,
                         'device_link_id' => $dl->id,

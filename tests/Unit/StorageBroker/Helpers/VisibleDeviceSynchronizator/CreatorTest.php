@@ -16,11 +16,26 @@ use Tests\Helpers\RegisterDependsCrossClass;
 
 class CreatorTest extends BaseTest
 {
+    private static int $countMustBeCreated = 0;
+    private static int $countNeighboursMustLeft;
+
     public function testCreateNew(): array
     {
         $keepers = RegisterDependsCrossClass::get('keepers');
         $neighboursLeft = RegisterDependsCrossClass::get('neighboursLeft');
-        $this->testIfShouldProceed($keepers);
+        $this->testIfShouldProceed($keepers, $neighboursLeft);
+        $this->assertCount(4, $neighboursLeft);
+
+        self::$countNeighboursMustLeft = count($neighboursLeft);
+        foreach ($neighboursLeft as $neighbour) {
+            if (
+                !is_null($neighbour->lladdr)
+                && (0 != strcasecmp($neighbour->state, DeviceLinkStateLog::STATE_FAILED))
+            ) {
+                self::$countMustBeCreated = ++self::$countMustBeCreated;
+                self::$countNeighboursMustLeft = --self::$countNeighboursMustLeft;
+            }
+        }
 
         /** @var Creator $creator */
         $creator = $this->app->make(Creator::class);
@@ -94,7 +109,7 @@ class CreatorTest extends BaseTest
             }
             return false;
         });
-        $this->assertCount(4, $keepersMatched);
+        $this->assertCount(self::$countMustBeCreated, $keepersMatched);
     }
 
     /** @depends testCreateNew */
@@ -102,6 +117,14 @@ class CreatorTest extends BaseTest
     {
         /** @var Collection $keepers */
         $keepers = $args[0];
-        $this->assertCount(16, $keepers);
+        $this->assertCount(12 + self::$countMustBeCreated, $keepers);
+    }
+
+    /** @depends testCreateNew */
+    public function testCountNeighboursLeft(array $args)
+    {
+        /** @var Collection $keepers */
+        $neighboursLeft = $args[1];
+        $this->assertCount(self::$countNeighboursMustLeft, $neighboursLeft);
     }
 }
