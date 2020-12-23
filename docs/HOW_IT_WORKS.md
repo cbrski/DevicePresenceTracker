@@ -1,4 +1,8 @@
-#### Router (OpenWrt)
+### Router (OpenWrt)
+
+:information_source: [Struktura plików *.bash* na routerze jest dostępna w gałęzi 'router'](https://github.com/cbrski/DevicePresenceTracker/tree/router)
+
+Komunikacja z routerem poprzez JSON-RPC.
 
 Dane pozyskujemy głównie dzięki komendzie:
 ```bash
@@ -9,19 +13,12 @@ wraz z asystą komend:
 cat /tmp/dhcp.leases*
 iwinfo wlan0 assoclist
 ```
-
 [Dostępne stany urządzeń](https://www.man7.org/linux/man-pages/man8/ip-neighbour.8.html) to wartości "STATE" komendy "ip neigh".
 
-Główny skrypt zwracający dane w formacie JSON znajduje się w gałęzi "router" tego repozytorium pod ścieżką:
-```bash
-/var/DevicePresenceTracker/main.sh
-```
+Główna logika skryptu 
+[dostępna tutaj (*main.sh*)](https://github.com/cbrski/DevicePresenceTracker/blob/router/var/DevicePresenceTracker/main.sh)
 
-Dane z routera można pobrać tylko po uwierzytelnieniu poprzez protokół RPC.
-
-Struktura plików na routerze dostępna jest w gałęzi 'router'.
-
-#### Serwer
+### Serwer
 
 :information_source: [Konfiguracja API dla połączenia z routerem](ROUTER_API_CONFIG.md)
 
